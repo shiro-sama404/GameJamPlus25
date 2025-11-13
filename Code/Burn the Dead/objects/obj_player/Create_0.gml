@@ -137,7 +137,7 @@ estado_pulo = function(){
 		estado = estado_jump_kick2;
 	}
 
-	gravidade();
+	gravidade(grav);
 	
 }
 
@@ -175,19 +175,6 @@ estado_jump_kick2 = function(){
 	}
 	
 }
-gravidade = function(_grav = grav){
-	z += velz;
-	
-	if (z < 0){
-		velz += _grav;
-	}
-	else {
-		velz = 0;
-		z = 0;
-		estado = estado_idle;
-	}
-	
-	
-}
+
 estado = estado_walk;
 
