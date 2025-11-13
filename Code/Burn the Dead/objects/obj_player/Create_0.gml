@@ -9,6 +9,7 @@ vel_pulo = 4;
 grav = .15;
 face = 1;
 buffer_attack = false;
+my_damage = noone;
 
 up		= noone;
 down	= noone;
@@ -73,6 +74,8 @@ estado_walk = function(){
 
 estado_ataque = function(){
 	
+
+	velv = 0;
 	velh = 0;
 	
 	var _attack = false;
@@ -106,6 +109,8 @@ estado_ataque = function(){
 	if (image_index >= image_number-1){
 		estado = estado_idle;
 		buffer_attack = false;
+		
+		delete my_damage;
 	}
 }
 
@@ -137,7 +142,7 @@ estado_pulo = function(){
 		estado = estado_jump_kick2;
 	}
 
-	gravidade();
+	gravidade(grav);
 	
 }
 
@@ -154,8 +159,9 @@ estado_jump_kick = function(){
 	
 	if (image_index >= image_number - 1){
 		estado = estado_pulo;
+		delete my_damage;
 	}
-	gravidade(); 
+	gravidade(grav); 
 }
 estado_jump_kick2 = function(){
 
@@ -175,19 +181,6 @@ estado_jump_kick2 = function(){
 	}
 	
 }
-gravidade = function(_grav = grav){
-	z += velz;
-	
-	if (z < 0){
-		velz += _grav;
-	}
-	else {
-		velz = 0;
-		z = 0;
-		estado = estado_idle;
-	}
-	
-	
-}
+
 estado = estado_walk;
 

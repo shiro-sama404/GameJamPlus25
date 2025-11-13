@@ -1,5 +1,7 @@
+event_inherited();
 estado();
 
-if (velh != 0){
-	face = sign(velh);
+
+if (is_struct(my_damage)){
+	my_damage.atualiza_posicao();
 }
