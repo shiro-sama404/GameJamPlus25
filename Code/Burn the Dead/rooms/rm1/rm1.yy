@@ -1,17 +1,18 @@
 {
   "$GMRoom":"v1",
-  "%Name":"Room1",
+  "%Name":"rm1",
   "creationCodeFile":"",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_27F689C6","path":"rooms/Room1/Room1.yy",},
-    {"name":"inst_6CD7D169","path":"rooms/Room1/Room1.yy",},
-    {"name":"inst_6C33E3CC","path":"rooms/Room1/Room1.yy",},
-    {"name":"inst_61C9ED4D","path":"rooms/Room1/Room1.yy",},
-    {"name":"inst_6CAB8FC3","path":"rooms/Room1/Room1.yy",},
-    {"name":"inst_61A86B82","path":"rooms/Room1/Room1.yy",},
+    {"name":"inst_27F689C6","path":"rooms/rm1/rm1.yy",},
+    {"name":"inst_6CD7D169","path":"rooms/rm1/rm1.yy",},
+    {"name":"inst_6C33E3CC","path":"rooms/rm1/rm1.yy",},
+    {"name":"inst_61C9ED4D","path":"rooms/rm1/rm1.yy",},
+    {"name":"inst_6CAB8FC3","path":"rooms/rm1/rm1.yy",},
+    {"name":"inst_61A86B82","path":"rooms/rm1/rm1.yy",},
+    {"name":"inst_4545D5D1","path":"rooms/rm1/rm1.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -27,6 +28,7 @@
       ],"layers":[],"name":"controllers","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"Instances","depth":300,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_27F689C6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_27F689C6","objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":57.0,"y":141.0,},
+        {"$GMRInstance":"v4","%Name":"inst_4545D5D1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4545D5D1","objectId":{"name":"pause_controller","path":"objects/pause_controller/pause_controller.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":-32.0,"y":64.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRTileLayer":"","%Name":"Tiles_2","depth":400,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tiles_2","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":14,"SerialiseWidth":86,"TileCompressedData":[
           14,1,2,3,4,5,6,7,8,9,10,11,12,13,14,-7,-2147483648,14,1,2,3,4,5,6,7,8,9,10,11,12,13,14,-9,-2147483648,
@@ -81,10 +83,10 @@
         ],"TileDataFormat":1,},"tilesetId":{"name":"ts_level","path":"tilesets/ts_level/ts_level.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":600,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"back","path":"sprites/back/back.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
-  "name":"Room1",
+  "name":"rm1",
   "parent":{
-    "name":"Burn the Dead",
-    "path":"Burn the Dead.yyp",
+    "name":"Rooms",
+    "path":"folders/Rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
