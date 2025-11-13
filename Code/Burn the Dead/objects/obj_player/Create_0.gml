@@ -7,6 +7,8 @@ z = 0;
 vel_max = 2;
 vel_pulo = 4;
 grav = .15;
+face = 1;
+buffer_attack = false;
 
 up		= noone;
 down	= noone;
@@ -45,6 +47,7 @@ estado_idle = function(){
 	}
 	if (jump){
 		estado = estado_pulo;
+		velz = -vel_pulo;
 	}
 	
 	if (attack){
@@ -61,6 +64,7 @@ estado_walk = function(){
 	}
 	if (jump){
 		estado = estado_pulo;
+		velz = -vel_pulo;
 	}
 	if (attack){
 		estado = estado_ataque;
@@ -71,35 +75,53 @@ estado_ataque = function(){
 	
 	velh = 0;
 	
-	var _attack = keyboard_check_pressed(ord("J"))
+	var _attack = false;
 	
-	if sprite_index != spr_player_punch1 && sprite_index != spr_player_kick{
+	if (buffer_attack == true){
+		_attack = true;
+	}
+	else{
+		buffer_attack = keyboard_check_pressed(ord("J"));
+	}
+	
+	if sprite_index != spr_player_punch1 && sprite_index != spr_player_kick && sprite_index != spr_player_jump_attack{
 		image_index = 0;
 		sprite_index = spr_player_kick;
 	}
 	
-	if _attack {
+	if _attack && image_index >= image_number -1 {
 		if sprite_index == spr_player_kick{
-			image_index = 0;
 			sprite_index = spr_player_punch1;
+			image_index = 0;
+			buffer_attack = false; 
+		}
+		if sprite_index == spr_player_punch1 && buffer_attack{
+			sprite_index = spr_player_jump_attack;
+			image_index = 0;
+			buffer_attack = false; 
 		}
 	}
 	
 	
 	if (image_index >= image_number-1){
 		estado = estado_idle;
+		buffer_attack = false;
 	}
 }
 
 estado_pulo = function(){
 	
 	if (sprite_index != spr_player_jump && velz <=0){
-		sprite_index = spr_player_jump;
-		image_index = 0;
-		
-		velz = -vel_pulo;
+				
+		if (sprite_index != spr_player_jump_attack){
+
+			sprite_index = spr_player_jump;
+			image_index = 0;
+		}
+
 	}
 	controla_player();
+	velv = 0;
 	
 	if (image_index >= image_number-1){
 		image_index = image_number -1;
@@ -108,10 +130,56 @@ estado_pulo = function(){
 	if (velz > 0){
 		sprite_index = spr_player_caindo;
 	}
+	if (attack){
+		estado = estado_jump_kick;
+	}
+	if (attack && down){
+		estado = estado_jump_kick2;
+	}
+
+	gravidade();
+	
+}
+
+estado_jump_kick = function(){
+	
+	velz =.1;
+
+	if(sprite_index != spr_player_jump_attack){
+
+		
+		sprite_index = spr_player_jump_attack
+		image_index = 0;
+	}
+	
+	if (image_index >= image_number - 1){
+		estado = estado_pulo;
+	}
+	gravidade(); 
+}
+estado_jump_kick2 = function(){
+
+	velv = 0;
+	
+
+	if sprite_index != spr_player_jump_attack2{
+		sprite_index = spr_player_jump_attack2;
+		image_index = 0;
+		velh = 0;
+	}
+	
+	if (image_index >= image_number -1){
+		image_index = image_number -1;
+		gravidade(grav*10);
+		velh = face * 12;
+	}
+	
+}
+gravidade = function(_grav = grav){
 	z += velz;
 	
 	if (z < 0){
-		velz += grav;
+		velz += _grav;
 	}
 	else {
 		velz = 0;
@@ -120,14 +188,6 @@ estado_pulo = function(){
 	}
 	
 	
-}
-
-estado_jump_kick = function(){
-
-	if(sprite_index != spr_player_jump_attack){
-		sprite_index = spr_player_jump_attack
-		image_index = 0;
-	}
 }
 estado = estado_walk;
 

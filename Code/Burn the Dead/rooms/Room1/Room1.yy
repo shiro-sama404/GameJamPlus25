@@ -83,8 +83,8 @@
   ],
   "name":"Room1",
   "parent":{
-    "name":"Burn the Dead",
-    "path":"Burn the Dead.yyp",
+    "name":"Rooms",
+    "path":"folders/Rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
