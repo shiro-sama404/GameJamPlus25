@@ -55,6 +55,17 @@ function gamepad_vibrate_dash(){
     }
 }
 
+// Função para vibração quando bloqueia um ataque
+function gamepad_vibrate_block(){
+    gamepad_set_vibration(0, 0.1, 0.1); // Vibração muito leve para bloqueio
+    // Timer muito curto para bloqueio
+    if (instance_exists(obj_player)) {
+        with(obj_player) {
+            vibration_timer = 4; // 4 frames para bloqueio
+        }
+    }
+}
+
 // Função para vibração de ataque com escalonamento de combo
 function gamepad_vibrate_attack(_combo_level = 1){
     var _base_intensity = 0.1;
@@ -173,6 +184,22 @@ function aplicar_dano_entre_entidades(atacante, alvo) {
         
         // Adicionar à lista de atingidos deste ataque
         array_push(atacante.my_damage.inimigos_atingidos, alvo);
+        
+        // Se o alvo for o player e estiver defendendo, aplicar knockback mas não dano
+        if (alvo.object_index == obj_player && alvo.estado == alvo.estado_defense) {
+            // Aplicar knockback leve de defesa
+            var _knockback_direction = point_direction(atacante.x, atacante.y, alvo.x, alvo.y);
+            var _knockback_force = 1.5; // Knockback mais leve para defesa
+            alvo.knockback_velh = lengthdir_x(_knockback_force, _knockback_direction);
+            alvo.knockback_velv = lengthdir_y(_knockback_force, _knockback_direction);
+            
+            // Vibração leve quando bloqueia
+            if (gamepad_connected()) {
+                gamepad_vibrate_block();
+            }
+            
+            return false; // Não causou dano, mas houve interação
+        }
         
         // Feedback tátil para o player quando acertar um golpe
         if (atacante.object_index == obj_player && gamepad_connected()) {

@@ -85,6 +85,12 @@ function enemy_estado_persegue(){
 	var _distancia_y_abs = abs(_distancia_y);
 	var _distancia_total = point_distance(my_x, my_y, ponto_x, ponto_y);
 	
+	// Verificar se o player está sendo empurrado por knockback
+	var _player_em_knockback = false;
+	if (instance_exists(alvo) && (abs(alvo.knockback_velh) > 0.5 || abs(alvo.knockback_velv) > 0.5)) {
+		_player_em_knockback = true;
+	}
+	
 	// Verificar se está na distância de ataque E bem alinhado no eixo Y
 	var _tolerancia_y = 15; // Tolerância um pouco maior para alinhamento vertical
 	var _distancia_ideal = 25; // Distância mais conservadora baseada na hitbox real (32px)
@@ -94,7 +100,8 @@ function enemy_estado_persegue(){
 	// 1. Estar dentro do alcance real da hitbox (25 pixels)
 	// 2. Estar bem alinhado verticalmente (15 pixels)
 	// 3. Estar na distância X correta para a hitbox acertar
-	if (_distancia_total <= _distancia_ideal && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs <= _alcance_x_maximo) {
+	// 4. Player NÃO deve estar em knockback (nova condição)
+	if (_distancia_total <= _distancia_ideal && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs <= _alcance_x_maximo && !_player_em_knockback) {
 		// Parar movimento e atacar
 		velh = 0;
 		velv = 0;
@@ -163,8 +170,11 @@ function enemy_estado_ataque(){
 		var _tolerancia_y = 15; // Mesma tolerância da perseguição
 		var _alcance_x_maximo = 28; // Baseado na hitbox real
 		
-		if (_dist_player > 35 || _dist_y > _tolerancia_y + 5 || _dist_x > _alcance_x_maximo + 5) {
-			// Player saiu do alcance efetivo, voltar a perseguir
+		// Verificar se player está em knockback
+		var _player_em_knockback = (abs(alvo.knockback_velh) > 0.5 || abs(alvo.knockback_velv) > 0.5);
+		
+		if (_dist_player > 35 || _dist_y > _tolerancia_y + 5 || _dist_x > _alcance_x_maximo + 5 || _player_em_knockback) {
+			// Player saiu do alcance efetivo ou está em knockback, voltar a perseguir
 			estado = enemy_estado_persegue;
 			return;
 		}

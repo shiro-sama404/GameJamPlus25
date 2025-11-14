@@ -10,6 +10,8 @@ TECLADO:
 - WASD: Movimento (W=Cima, A=Esquerda, S=Baixo, D=Direita)
 - J: Atacar
 - K: Pular
+- L: Dash
+- Shift: Defesa (segure para defender)
 
 GAMEPAD XBOX/XINPUT:
 - Analógico Esquerdo / D-Pad: Movimento
@@ -17,8 +19,8 @@ GAMEPAD XBOX/XINPUT:
 - B (gp_face2): Atacar  
 - X (gp_face3): Ataque especial (mesmo que B por enquanto)
 - Y (gp_face4): Reservado para futuras funcionalidades
-- LB/RB: Reservados para dash/esquiva
-- LT/RT: Reservados para ataques carregados
+- LB: Dash
+- RB: Defesa (segure para defender)
 */
 
 function player_controla(){
@@ -29,7 +31,8 @@ function player_controla(){
 	var _kb_right = keyboard_check(ord("D"));
 	var _kb_jump = keyboard_check_pressed(ord("K"));
 	var _kb_attack = keyboard_check_pressed(ord("J"));
-	var _kb_dash = keyboard_check_pressed(ord("L")); // Shift para dash
+	var _kb_dash = keyboard_check_pressed(ord("L")); // L para dash
+	var _kb_defense = keyboard_check(vk_shift); // Shift para defesa
 	
 	// Input de gamepad (Player 1 - Gamepad 0)
 	var _gp_up = gamepad_button_check(0, gp_padu) || gamepad_axis_value(0, gp_axislv) < -0.5;
@@ -38,7 +41,8 @@ function player_controla(){
 	var _gp_right = gamepad_button_check(0, gp_padr) || gamepad_axis_value(0, gp_axislh) > 0.5;
 	var _gp_jump = gamepad_button_check_pressed(0, gp_face1); // A/Cross - Pular
 	var _gp_attack = gamepad_button_check_pressed(0, gp_face2) || gamepad_button_check_pressed(0, gp_face3); // B/Circle ou X/Square - Atacar
-	var _gp_dash = gamepad_button_check_pressed(0, gp_shoulderlb) || gamepad_button_check_pressed(0, gp_shoulderrb); // LB/RB - Dash
+	var _gp_dash = gamepad_button_check_pressed(0, gp_shoulderlb); // LB - Dash
+	var _gp_defense = gamepad_button_check(0, gp_shoulderrb); // RB - Defesa (segure)
 	
 	// Combinar inputs (teclado OU gamepad)
 	up = _kb_up || _gp_up;
@@ -48,6 +52,7 @@ function player_controla(){
 	jump = _kb_jump || _gp_jump;
 	attack = _kb_attack || _gp_attack;
 	dash = _kb_dash || _gp_dash;
+	defense = _kb_defense || _gp_defense;
 
 	// Calcular direção do movimento
 	var _input_h = right - left;
@@ -72,6 +77,12 @@ function player_estado_idle(){
 		sprite_index = spr_player_idle;
 	}
 	player_controla();
+	
+	// Verificar defesa primeiro
+	if (defense) {
+		estado = player_estado_defense;
+		return;
+	}
 	
 	//saindo do estado
 	if velh != 0 or velv != 0{
@@ -103,6 +114,12 @@ function player_estado_walk(){
 		sprite_index = spr_player_walk;
 	}
 	player_controla();
+	
+	// Verificar defesa primeiro
+	if (defense) {
+		estado = player_estado_defense;
+		return;
+	}
 	
 	if velh == 0 && velv == 0{
 		estado = player_estado_idle; 
@@ -301,6 +318,38 @@ function player_estado_dash() {
 		} else {
 			estado = player_estado_idle;
 		}
+	}
+}
+
+// Estado de defesa
+function player_estado_defense() {
+	// Parar todo movimento
+	velh = 0;
+	velv = 0;
+	
+	// Desativar qualquer animação de dano se estiver ativa
+	if (dano_animacao_ativa) {
+		dano_animacao_ativa = false;
+		dano_animacao_timer = 0;
+	}
+	
+	// Usar sprite de defesa
+	sprite_index = spr_player_defense;
+	
+	// Se chegou no último frame, parar a animação
+	if (image_index >= image_number - 1) {
+		image_index = image_number - 1;
+		image_speed = 0; // Parar animação no último frame
+	}
+	
+	// Verificar inputs para sair da defesa
+	player_controla();
+	
+	// Sair da defesa quando soltar o botão
+	if (!defense) {
+		// Restaurar velocidade normal da animação
+		image_speed = 1;
+		estado = player_estado_idle;
 	}
 }
 

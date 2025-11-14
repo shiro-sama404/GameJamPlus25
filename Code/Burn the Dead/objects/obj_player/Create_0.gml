@@ -33,6 +33,7 @@ right	= noone;
 jump	= noone;
 attack	= noone;
 dash	= noone;
+defense	= noone;
 
 // Timer para controlar vibração
 vibration_timer = 0;
@@ -48,6 +49,11 @@ dano_animacao_ativa = false;
 dano_animacao_timer = 0;
 dano_animacao_duracao = 20; // Duração em frames da animação de dano
 sprite_antes_dano = noone; // Para salvar sprite anterior
+
+// Sistema de invencibilidade
+invencibilidade_ativa = false;
+invencibilidade_timer = 0;
+invencibilidade_duracao = 45; // 0.75 segundos de invencibilidade a 60fps
 
 // Variáveis do dash
 dash_disponivel = true;
@@ -71,6 +77,21 @@ morrer = function() {
 
 // Sobrescrever funções de dano para adicionar animação
 receber_dano = function(_quantidade_dano, _atacante = noone) {
+    // Não receber dano se estiver defendendo
+    if (estado == estado_defense) {
+        return false;
+    }
+    
+    // Não receber dano se estiver em invencibilidade
+    if (invencibilidade_ativa) {
+        return false;
+    }
+    
+    // Verificação extra por sprite
+    if (sprite_index == spr_player_defense) {
+        return false;
+    }
+    
     // Verificar se pode receber dano deste atacante
     if (dano_cooldown_atual > 0) return false;
     
@@ -89,17 +110,24 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
     dano_cooldown_atual = dano_cooldown_tempo;
     flash_dano = 10; // Flash visual por 10 frames
     
+    // Ativar invencibilidade
+    invencibilidade_ativa = true;
+    invencibilidade_timer = invencibilidade_duracao;
+    
     // Ativar animação de dano
     iniciar_animacao_dano();
+    
+    // Aplicar knockback leve para trás
+    if (_atacante != noone) {
+        var _knockback_direction = point_direction(_atacante.x, _atacante.y, x, y);
+        var _knockback_force = 3; // Força do knockback
+        knockback_velh = lengthdir_x(_knockback_force, _knockback_direction);
+        knockback_velv = lengthdir_y(_knockback_force, _knockback_direction);
+    }
     
     // Vibração quando o player toma dano (apenas se ainda estiver vivo)
     if (vida_atual > 0) {
         gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
-    }
-    
-    // Aplicar knockback se necessário
-    if (_atacante != noone) {
-        aplicar_knockback_por_ataque(_atacante, self);
     }
     
     if (vida_atual <= 0) {
@@ -112,20 +140,42 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
 }
 
 receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
+    // Não receber dano se estiver defendendo
+    if (estado == estado_defense) {
+        return false;
+    }
+    
+    // Não receber dano se estiver em invencibilidade
+    if (invencibilidade_ativa) {
+        return false;
+    }
+    
+    // Verificação extra por sprite
+    if (sprite_index == spr_player_defense) {
+        return false;
+    }
+    
     vida_atual -= _quantidade_dano;
     flash_dano = 10; // Flash visual por 10 frames
+    
+    // Ativar invencibilidade
+    invencibilidade_ativa = true;
+    invencibilidade_timer = invencibilidade_duracao;
     
     // Ativar animação de dano
     iniciar_animacao_dano();
     
+    // Aplicar knockback leve para trás
+    if (_atacante != noone) {
+        var _knockback_direction = point_direction(_atacante.x, _atacante.y, x, y);
+        var _knockback_force = 3; // Força do knockback
+        knockback_velh = lengthdir_x(_knockback_force, _knockback_direction);
+        knockback_velv = lengthdir_y(_knockback_force, _knockback_direction);
+    }
+    
     // Vibração quando o player toma dano (apenas se ainda estiver vivo)
     if (vida_atual > 0) {
         gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
-    }
-    
-    // Aplicar knockback se necessário
-    if (_atacante != noone) {
-        aplicar_knockback_por_ataque(_atacante, self);
     }
     
     if (vida_atual <= 0) {
@@ -162,6 +212,7 @@ estado_pulo = method(self, player_estado_pulo);
 estado_jump_kick = method(self, player_estado_jump_kick);
 estado_jump_kick2 = method(self, player_estado_jump_kick2);
 estado_dash = method(self, player_estado_dash);
+estado_defense = method(self, player_estado_defense);
 
 estado = estado_walk;
 
