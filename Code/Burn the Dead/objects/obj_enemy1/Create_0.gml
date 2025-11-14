@@ -54,6 +54,10 @@ morte_alpha = 1.0;
 
 // Sobrescrever função de morte
 morrer = function() {
+    // Som de morte do inimigo - escolher aleatoriamente entre os dois sons
+    var _som_morte = choose(snd_enemy_death1, snd_enemy_death2);
+    audio_play_sound(_som_morte, 1, false);
+    
     // Mudar para estado de morte ao invés de destruir imediatamente
     estado = estado_morte;
     sprite_index = spr_enemy_death;

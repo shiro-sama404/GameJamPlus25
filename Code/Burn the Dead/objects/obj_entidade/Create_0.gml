@@ -54,9 +54,14 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
     dano_cooldown_atual = dano_cooldown_tempo;
     flash_dano = 10; // Flash visual por 10 frames
     
-    // Vibração quando o player toma dano (apenas se ainda estiver vivo)
+    // Sons de dano
     if (object_index == obj_player && vida_atual > 0) {
-        gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
+        // Vibração quando o player toma dano
+        gamepad_vibrate_damage_quick();
+    } else if (object_is_ancestor(object_index, obj_entidade) && object_index != obj_player) {
+        // Som de dano para qualquer inimigo (herda de obj_entidade mas não é player)
+        var _som_dano = choose(snd_enemy_hurt1, snd_enemy_hurt2);
+        audio_play_sound(_som_dano, 1, false);
     }
     
     // Aplicar knockback se necessário
@@ -78,9 +83,14 @@ receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
     vida_atual -= _quantidade_dano;
     flash_dano = 10; // Flash visual por 10 frames
     
-    // Vibração quando o player toma dano (apenas se ainda estiver vivo)
+    // Sons de dano
     if (object_index == obj_player && vida_atual > 0) {
-        gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
+        // Vibração quando o player toma dano
+        gamepad_vibrate_damage_quick();
+    } else if (object_is_ancestor(object_index, obj_entidade) && object_index != obj_player) {
+        // Som de dano para qualquer inimigo (herda de obj_entidade mas não é player)
+        var _som_dano = choose(snd_enemy_hurt1, snd_enemy_hurt2);
+        audio_play_sound(_som_dano, 1, false);
     }
     
     // Aplicar knockback se necessário

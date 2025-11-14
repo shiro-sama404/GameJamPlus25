@@ -9,6 +9,9 @@ if (layer_instance_get_instance(_elemento) == id){
 	{
 	    if (_msg == "atacar")
 	    {
+			// Som de ataque do player
+			audio_play_sound(snd_player_attack, 1, false);
+			
 			// Criar hitbox baseada na bounding box do sprite atual
 			var _x1, _y1, _x2, _y2;
 			

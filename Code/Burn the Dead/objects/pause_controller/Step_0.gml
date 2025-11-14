@@ -233,6 +233,11 @@ switch(global.game_state)
 		        }
 		    }
 		}
+		
+		// Botão B/Back para voltar ao menu de pause
+		if (_key_back) {
+			global.game_state = PAUSED_STATE;
+		}
 	
 	break;
 }
