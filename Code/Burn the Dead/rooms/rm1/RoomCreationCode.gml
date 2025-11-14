@@ -1,2 +1,1 @@
-// Room Creation Code para teste
-// Testando o sistema de vida e dano
+audio_stop_sound(snd_theme_music);
