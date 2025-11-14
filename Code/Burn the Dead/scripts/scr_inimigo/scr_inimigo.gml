@@ -10,6 +10,13 @@ function enemy_checa_area(_tamanho_area = 0, _alvo = noone){
 function enemy_estado_parado(){
 	sprite_index = spr_enemy_idle;
 	
+	// Não fazer nada se estiver em recuperação
+	if (recuperacao_ativa) {
+		velh = 0;
+		velv = 0;
+		return;
+	}
+	
 	if timer_ataque > 0 {
 		timer_ataque--;
 	}
@@ -36,6 +43,14 @@ function enemy_estado_parado(){
 }
 
 function enemy_estado_andando(){
+	// Não fazer nada se estiver em recuperação
+	if (recuperacao_ativa) {
+		sprite_index = spr_enemy_idle;
+		velh = 0;
+		velv = 0;
+		return;
+	}
+	
 	if timer_ataque > 0 {
 		timer_ataque--;
 	}
@@ -71,6 +86,14 @@ function enemy_estado_persegue(){
 		return;
 	}
 	
+	// Não fazer nada se estiver em recuperação
+	if (recuperacao_ativa) {
+		sprite_index = spr_enemy_idle;
+		velh = 0;
+		velv = 0;
+		return;
+	}
+	
 	// Posições centralizadas para cálculo mais preciso
 	my_x = x;
 	my_y = y - sprite_height / 2;
@@ -85,12 +108,6 @@ function enemy_estado_persegue(){
 	var _distancia_y_abs = abs(_distancia_y);
 	var _distancia_total = point_distance(my_x, my_y, ponto_x, ponto_y);
 	
-	// Verificar se o player está sendo empurrado por knockback
-	var _player_em_knockback = false;
-	if (instance_exists(alvo) && (abs(alvo.knockback_velh) > 0.5 || abs(alvo.knockback_velv) > 0.5)) {
-		_player_em_knockback = true;
-	}
-	
 	// Verificar se está na distância de ataque E bem alinhado no eixo Y
 	var _tolerancia_y = 15; // Tolerância um pouco maior para alinhamento vertical
 	var _distancia_ideal = 25; // Distância mais conservadora baseada na hitbox real (32px)
@@ -100,8 +117,8 @@ function enemy_estado_persegue(){
 	// 1. Estar dentro do alcance real da hitbox (25 pixels)
 	// 2. Estar bem alinhado verticalmente (15 pixels)
 	// 3. Estar na distância X correta para a hitbox acertar
-	// 4. Player NÃO deve estar em knockback (nova condição)
-	if (_distancia_total <= _distancia_ideal && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs <= _alcance_x_maximo && !_player_em_knockback) {
+	// 4. Não estar em cooldown de knockback
+	if (_distancia_total <= _distancia_ideal && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs <= _alcance_x_maximo && knocback_cooldown <= 0) {
 		// Parar movimento e atacar
 		velh = 0;
 		velv = 0;
@@ -119,11 +136,18 @@ function enemy_estado_persegue(){
 		velh = (_distancia_x / _magnitude) * velocidade_perseguicao;
 		velv = (_distancia_y / _magnitude) * velocidade_perseguicao;
 		
-		// Ajustar face baseado na direção
-		if (_distancia_x > 0) {
-			face = 1;
-		} else if (_distancia_x < 0) {
-			face = -1;
+		// Zona morta para movimento horizontal quando muito próximo e bem alinhado
+		if (_distancia_total < alcance_ataque + 15 && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs < 8) {
+			velh = 0; // Parar movimento horizontal se estiver muito próximo e bem posicionado
+		}
+		
+		// Ajustar face baseado na direção (só se movimento horizontal for significativo)
+		if (abs(_distancia_x) > 5) { // Só muda direção se diferença for maior que 5 pixels
+			if (_distancia_x > 0) {
+				face = 1;
+			} else if (_distancia_x < 0) {
+				face = -1;
+			}
 		}
 		
 		// ACELERAR quando próximo para ajuste rápido de posição Y
@@ -170,11 +194,8 @@ function enemy_estado_ataque(){
 		var _tolerancia_y = 15; // Mesma tolerância da perseguição
 		var _alcance_x_maximo = 28; // Baseado na hitbox real
 		
-		// Verificar se player está em knockback
-		var _player_em_knockback = (abs(alvo.knockback_velh) > 0.5 || abs(alvo.knockback_velv) > 0.5);
-		
-		if (_dist_player > 35 || _dist_y > _tolerancia_y + 5 || _dist_x > _alcance_x_maximo + 5 || _player_em_knockback) {
-			// Player saiu do alcance efetivo ou está em knockback, voltar a perseguir
+		if (_dist_player > 35 || _dist_y > _tolerancia_y + 5 || _dist_x > _alcance_x_maximo + 5) {
+			// Player saiu do alcance efetivo, voltar a perseguir
 			estado = enemy_estado_persegue;
 			return;
 		}
@@ -187,6 +208,10 @@ function enemy_estado_ataque(){
 		limpar_atacantes_de_entidades();
 	}
 	if image_index > image_number -1 {
+		// Ativar estado de recuperação
+		recuperacao_ativa = true;
+		recuperacao_timer = recuperacao_duracao;
+		
 		estado = enemy_estado_parado;
 		timer_ataque = espera_estado;
 		// Limpar hitbox de dano quando a animação termina

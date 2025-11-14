@@ -37,6 +37,15 @@ alvo = noone;
 
 timer_ataque = espera_estado;
 
+// Cooldown após causar knockback no player
+knocback_cooldown = 0;
+knocback_cooldown_tempo = 90; // 1.5 segundos a 60fps
+
+// Estado de recuperação após ataque
+recuperacao_ativa = false;
+recuperacao_timer = 0;
+recuperacao_duracao = 30; // 0.5 segundos a 60fps
+
 // Variáveis para controle da animação de morte
 morte_animacao_completa = false;
 morte_timer_fade = 0;

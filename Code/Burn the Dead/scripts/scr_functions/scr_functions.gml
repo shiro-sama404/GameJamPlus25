@@ -186,12 +186,17 @@ function aplicar_dano_entre_entidades(atacante, alvo) {
         array_push(atacante.my_damage.inimigos_atingidos, alvo);
         
         // Se o alvo for o player e estiver defendendo, aplicar knockback mas não dano
-        if (alvo.object_index == obj_player && alvo.estado == alvo.estado_defense) {
+        if (alvo.object_index == obj_player && alvo.sprite_index == spr_player_defense) {
             // Aplicar knockback leve de defesa
             var _knockback_direction = point_direction(atacante.x, atacante.y, alvo.x, alvo.y);
             var _knockback_force = 1.5; // Knockback mais leve para defesa
             alvo.knockback_velh = lengthdir_x(_knockback_force, _knockback_direction);
             alvo.knockback_velv = lengthdir_y(_knockback_force, _knockback_direction);
+            
+            // Ativar cooldown no atacante se for inimigo
+            if (atacante.object_index == obj_enemy1) {
+                atacante.knocback_cooldown = atacante.knocback_cooldown_tempo;
+            }
             
             // Vibração leve quando bloqueia
             if (gamepad_connected()) {
@@ -210,7 +215,12 @@ function aplicar_dano_entre_entidades(atacante, alvo) {
         if (atacante.object_index == obj_player) {
             return alvo.receber_dano_sem_cooldown(atacante.dano, atacante);
         } else {
-            return alvo.receber_dano(atacante.dano, atacante);
+            // Se for inimigo atacando player, ativar cooldown após dano
+            var _dano_aplicado = alvo.receber_dano(atacante.dano, atacante);
+            if (_dano_aplicado && alvo.object_index == obj_player && atacante.object_index == obj_enemy1) {
+                atacante.knocback_cooldown = atacante.knocback_cooldown_tempo;
+            }
+            return _dano_aplicado;
         }
     }
     

@@ -78,17 +78,12 @@ morrer = function() {
 // Sobrescrever funções de dano para adicionar animação
 receber_dano = function(_quantidade_dano, _atacante = noone) {
     // Não receber dano se estiver defendendo
-    if (estado == estado_defense) {
+    if (sprite_index == spr_player_defense) {
         return false;
     }
     
     // Não receber dano se estiver em invencibilidade
     if (invencibilidade_ativa) {
-        return false;
-    }
-    
-    // Verificação extra por sprite
-    if (sprite_index == spr_player_defense) {
         return false;
     }
     
@@ -141,17 +136,12 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
 
 receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
     // Não receber dano se estiver defendendo
-    if (estado == estado_defense) {
+    if (sprite_index == spr_player_defense) {
         return false;
     }
     
     // Não receber dano se estiver em invencibilidade
     if (invencibilidade_ativa) {
-        return false;
-    }
-    
-    // Verificação extra por sprite
-    if (sprite_index == spr_player_defense) {
         return false;
     }
     

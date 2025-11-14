@@ -323,7 +323,7 @@ function player_estado_dash() {
 
 // Estado de defesa
 function player_estado_defense() {
-	// Parar todo movimento
+	// Parar todo movimento e impedir novos inputs de movimento
 	velh = 0;
 	velv = 0;
 	
@@ -342,8 +342,15 @@ function player_estado_defense() {
 		image_speed = 0; // Parar animação no último frame
 	}
 	
-	// Verificar inputs para sair da defesa
-	player_controla();
+	// Verificar inputs para sair da defesa (SEM chamar player_controla)
+	// Input de teclado
+	var _kb_defense = keyboard_check(vk_shift); // Shift para defesa
+	
+	// Input de gamepad (Player 1 - Gamepad 0)
+	var _gp_defense = gamepad_button_check(0, gp_shoulderrb); // RB - Defesa (segure)
+	
+	// Combinar inputs (teclado OU gamepad)
+	defense = _kb_defense || _gp_defense;
 	
 	// Sair da defesa quando soltar o botão
 	if (!defense) {
