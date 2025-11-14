@@ -25,29 +25,35 @@ if (key_up)
 
 // Mouse interaction
 
+// "conecting" mouse with gui
+var _mouse_gui_x = device_mouse_x_to_gui(0);
+var _mouse_gui_y = device_mouse_y_to_gui(0);
+
 // 
-var mouse_selection = -1;
-var menu_center_x = menu_x;
+var _menu_center_x = display_get_gui_width() / 2;
+var _menu_y_start = (display_get_gui_height() / 2) - 60;
+
+var _mouse_selection = -1;
 
 // verify if mouse is under some option and redefines menu_index
 for (var i = 0; i < array_length(menu_options); i++)
 {
-	var yy = menu_y_start + (i * menu_spacing);
+	// starting by GUI reference
+	var yy = _menu_y_start + (i * menu_spacing);
 	
-	//
 	var text_width = string_width(menu_options[i]);
 	var text_height = string_height("A");
 	
 	// collision text area
-	var box_left = menu_center_x - (text_width * scale_current[i]) / 2;
-	var box_right = menu_center_x + (text_width * scale_current[i]) / 2;
+	var box_left = _menu_center_x - (text_width * scale_current[i]) / 2;
+	var box_right = _menu_center_x + (text_width * scale_current[i]) / 2;
 	var box_top = yy - (text_height * scale_current[i]) / 2;
 	var box_bottom = yy + (text_height * scale_current[i]) / 2;
 	
 	// veryfies if mouse is under the option
-	if (point_in_rectangle(mouse_x, mouse_y, box_left, box_top, box_right, box_bottom))
+	if (point_in_rectangle(_mouse_gui_x, _mouse_gui_y, box_left, box_top, box_right, box_bottom))
 	{
-		mouse_selection = i;
+		_mouse_selection = i;
 		menu_index = i;
 		
 		if (mouse_check_button_pressed(mb_left))

@@ -1,5 +1,14 @@
-// 1. Checar se o jogo está pausado
-if (global.game_state == PAUSED_STATE) {
+// Inputs
+var _key_up = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
+var _key_down = keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"));
+var _key_left = keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A"));
+var _key_right = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"));
+var _key_confirm = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space);
+var _key_back = keyboard_check_pressed(vk_escape);
+
+
+if (global.game_state == PAUSED_STATE)
+{
     
     // Diminuir o temporizador de input
     time_input = max(0, time_input - 1);
@@ -9,12 +18,12 @@ if (global.game_state == PAUSED_STATE) {
 	{
         var _change_selection = false;
 
-        if (keyboard_check(vk_down) || keyboard_check(ord("S"))) 
+        if (_key_down) 
 		{
             pause_index++;
             _change_selection = true;
         }
-        else if (keyboard_check(vk_up) || keyboard_check(ord("W"))) 
+        else if (_key_up) 
 		{
             pause_index--;
             _change_selection = true;
@@ -35,17 +44,73 @@ if (global.game_state == PAUSED_STATE) {
     }
 
 	// action
-    if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space))
+    if (_key_confirm)
 	{
         scr_pause_logic(pause_options);
     }
+    // mouse detection will be implemented on drawGUI
+}
+
+if (global.game_state == OPTIONS_STATE)
+{
+    // VERTICAL NAVIGATION
+    if (_key_up)
+	{
+        options_index = (options_index - 1 + array_length(options_list)) % array_length(options_list);
+    }
+	
+    if (_key_down) 
+	{
+        options_index = (options_index + 1) % array_length(options_list);
+    }
     
-    // --- C. Ação da Seleção (Mouse) - Implementação no Draw GUI
-    // A detecção de clique do mouse será feita no evento Draw GUI ao desenhar os botões.
+    var option = options_list[options_index];
+    var _var_id = asset_get_index(option.var_name); // gets global var ID
+
+    // HORIZONTAL NAVIGATON
+    if (_key_left || _key_right) {
+        
+        if (option.type == "toggle")
+        {
+            var _val = !variable_global_get(_var_id); 
+            variable_global_set(_var_id, _val);
+            
+            if (option.var_name == "global.fullscreen_on") 
+			{
+                 window_set_fullscreen(_val); 
+            }
+        }
+        else if (option.type == "switcher") 
+        {
+            var _current_idx = variable_global_get(_var_id);
+            
+			// update the index in mod
+            var _new_idx = (_current_idx + (key_right ? 1 : -1) + array_length(option.values)) % array_length(option.values);
+            variable_global_set(_var_id, _new_idx);
+        }
+        else if (option.type == "slider")
+        {
+            var _val = variable_global_get(_var_id);
+            var _new_val = _val + (key_right ? option.step : -option.step);
+            
+            // Limits the value and updates the variable and audio
+            _new_val = clamp(_new_val, option.min, option.max);
+            variable_global_set(_var_id, _new_val);
+            audio_master_gain(_new_val / 10); 
+        }
+    }
+    
+    // if ESCAPE is pressed, go back to pause menu
+    if (_key_back) 
+	{
+        global.game_state = PAUSED_STATE;
+        pause_index = 1;
+    }
 }
 
 // pause menu action
-if (keyboard_check_pressed(vk_escape)) {
+if (_key_back) 
+{
     if (global.game_state == GAMING_STATE) 
 	{
         global.game_state = PAUSED_STATE;
@@ -55,3 +120,4 @@ if (keyboard_check_pressed(vk_escape)) {
         global.game_state = GAMING_STATE;
     }
 }
+

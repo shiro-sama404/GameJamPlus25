@@ -21,6 +21,7 @@
     {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"pause","folderPath":"folders/Sprites/pause.yy","name":"pause","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Tilesets","folderPath":"folders/Tilesets.yy","name":"Tilesets","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
@@ -33,6 +34,7 @@
   "name":"Burn the Dead",
   "resources":[
     {"id":{"name":"fnt_menu","path":"fonts/fnt_menu/fnt_menu.yy",},},
+    {"id":{"name":"fnt_title","path":"fonts/fnt_title/fnt_title.yy",},},
     {"id":{"name":"menu_controller","path":"objects/menu_controller/menu_controller.yy",},},
     {"id":{"name":"obj_chao","path":"objects/obj_chao/obj_chao.yy",},},
     {"id":{"name":"obj_controla_cenario","path":"objects/obj_controla_cenario/obj_controla_cenario.yy",},},
@@ -43,6 +45,7 @@
     {"id":{"name":"scr_pause_logic","path":"scripts/scr_pause_logic/scr_pause_logic.yy",},},
     {"id":{"name":"back","path":"sprites/back/back.yy",},},
     {"id":{"name":"fore","path":"sprites/fore/fore.yy",},},
+    {"id":{"name":"spr_back_box","path":"sprites/spr_back_box/spr_back_box.yy",},},
     {"id":{"name":"spr_colisor","path":"sprites/spr_colisor/spr_colisor.yy",},},
     {"id":{"name":"spr_player_caindo","path":"sprites/spr_player_caindo/spr_player_caindo.yy",},},
     {"id":{"name":"spr_player_idle","path":"sprites/spr_player_idle/spr_player_idle.yy",},},

@@ -6,9 +6,6 @@ menu_options = [
 
 menu_index = 0;
 
-// drawing positions
-menu_x = room_width / 2;
-menu_y_start = room_height / 3;
 menu_spacing = 60;
 
 // scale configs

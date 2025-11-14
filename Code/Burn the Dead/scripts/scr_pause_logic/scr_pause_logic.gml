@@ -11,15 +11,13 @@ function scr_pause_logic(argument0)
 	        break;
 
 	    case 1: // "Opções"
-	        // Aqui você chamaria o menu de opções (ex: room_goto(rm_opcoes) 
-	        // ou mudar para um sub-estado de opções)
-	        show_message("Abrir menu de Opções!");
+			global.game_state = OPTIONS_STATE;
 	        break;
 
 	    case 2: // "Voltar para o Menu"
-	        global.game_state = GAMING_STATE; // Reseta o estado antes de mudar de Room
+	        global.game_state = GAMING_STATE; 
 	        instance_activate_all();
-	        room_goto(rm_menu); // Substitua pelo nome da sua Room do menu principal
+	        room_goto(rm_menu); 
 	        break;
 
 	    case 3: // "Sair para Área de Trabalho"
