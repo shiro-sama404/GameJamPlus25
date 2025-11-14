@@ -127,6 +127,12 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
     // Vibração quando o player toma dano (apenas se ainda estiver vivo)
     if (vida_atual > 0) {
         gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
+        
+        // Shake da câmera quando toma dano
+        var camera = instance_find(obj_camera, 0);
+        if (camera != noone) {
+            camera.aplicar_camera_shake(4, 20); // Shake médio por 20 frames
+        }
     }
     
     if (vida_atual <= 0) {
@@ -170,6 +176,12 @@ receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
     // Vibração quando o player toma dano (apenas se ainda estiver vivo)
     if (vida_atual > 0) {
         gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
+        
+        // Shake da câmera quando toma dano
+        var camera = instance_find(obj_camera, 0);
+        if (camera != noone) {
+            camera.aplicar_camera_shake(3, 15); // Shake leve por 15 frames
+        }
     }
     
     if (vida_atual <= 0) {
