@@ -1,22 +1,27 @@
 function scr_pause_logic(argument0)
 {
-	// argument0 é o índice (menu_selecao) da opção selecionada
+	// argument0 é o índice da opção selecionada
 
 	var _index = argument0;
 
 	switch (_index) {
 	    case 0: // "Voltar ao Jogo"
-	        global.game_state = GAMING_STATE;
+			// RETOMAR O JOGO: reativar todas as instâncias
 			instance_activate_all();
+			
+	        global.game_state = GAMING_STATE;
 	        break;
 
 	    case 1: // "Opções"
+			// Ir para menu de opções (mantém o jogo pausado)
 			global.game_state = OPTIONS_STATE;
 	        break;
 
 	    case 2: // "Voltar para o Menu"
+			// RETOMAR O JOGO antes de mudar de room
+			instance_activate_all();
+			
 	        global.game_state = GAMING_STATE; 
-	        instance_activate_all();
 	        room_goto(rm_menu); 
 	        break;
 

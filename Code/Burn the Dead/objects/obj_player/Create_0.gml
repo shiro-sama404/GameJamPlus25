@@ -12,7 +12,8 @@ velz = 0;
 
 z = 0;
 
-vel_max = 2;
+vel_max = 2; // Velocidade normal para caminhar
+vel_max_dash = 15; // Velocidade máxima durante dash
 vel_pulo = 4;
 grav = .15;
 face = 1;
@@ -62,7 +63,7 @@ dash_timer = 0;
 dash_ativo = false;
 dash_duracao = 12; // Duração do dash em frames
 dash_timer_ativo = 0;
-dash_velocidade = 8; // Velocidade do dash
+dash_velocidade = 10; // Velocidade do dash
 dash_direcao = 0; // Direção do dash (-1 esquerda, 1 direita)
 
 // Lista para armazenar posições do rastro

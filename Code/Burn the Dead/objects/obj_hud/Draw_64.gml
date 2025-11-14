@@ -1,36 +1,38 @@
 // HUD do Player - Draw GUI Event
 
-// Debug - verificar se o HUD está funcionando
+// Contador de FPS para debug
 draw_set_color(c_white);
-draw_text(10, 10, "HUD ATIVO");
+draw_set_halign(fa_right);
+draw_set_valign(fa_top);
+draw_text(display_get_gui_width() - 20, 20, "FPS: " + string(fps));
 
-// Configurações da barra de vida
-var _margin = 20;
-var _barra_largura = 200;
-var _barra_altura = 20;
-var _barra_x = _margin;
-var _barra_y = _margin + 30; // Movido para baixo do texto debug
+// HUD do Player - Draw GUI Event
 
-// Cor de fundo da barra
-var _cor_fundo = c_black;
-var _cor_vida = c_red;
-var _cor_borda = c_white;
+// Contador de FPS para debug
+draw_set_color(c_yellow);
+draw_set_halign(fa_right);
+draw_set_valign(fa_top);
+draw_text(display_get_gui_width() - 20, 20, "FPS: " + string(fps));
 
 // Procurar o player na room
 var _player = instance_find(obj_player, 0);
 
-// Debug - verificar se encontrou o player
-draw_text(10, 30, "Player encontrado: " + string(_player != noone));
-if (_player != noone) {
-    draw_text(10, 50, "Vida atual: " + string(_player.vida_atual));
-    draw_text(10, 70, "Vida maxima: " + string(_player.vida_maxima));
-    draw_text(10, 90, "Morreu: " + string(_player.morreu));
-}
-
 if (_player != noone && !_player.morreu) {
     
+    // Configurações da barra de vida
+    var _margin = 20;
+    var _barra_largura = 200;
+    var _barra_altura = 20;
+    var _barra_x = _margin;
+    var _barra_y = _margin;
+    
+    // Cores
+    var _cor_fundo = c_black;
+    var _cor_vida = c_red;
+    var _cor_borda = c_white;
+    
     // Calcular porcentagem de vida
-    var _vida_percent = _player.vida_atual / _player.vida_maxima;
+    var _vida_percent = clamp(_player.vida_atual / _player.vida_maxima, 0, 1);
     var _vida_largura = _barra_largura * _vida_percent;
     
     // Desenhar fundo da barra
@@ -45,11 +47,11 @@ if (_player != noone && !_player.morreu) {
     draw_set_color(_cor_borda);
     draw_rectangle(_barra_x - 2, _barra_y - 2, _barra_x + _barra_largura + 2, _barra_y + _barra_altura + 2, true);
     
-    // Desenhar texto da vida
+    // Texto da vida (opcional)
     draw_set_color(c_white);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
-    draw_text(_barra_x, _barra_y + _barra_altura + 5, "Vida: " + string(_player.vida_atual) + "/" + string(_player.vida_maxima));
+    draw_text(_barra_x, _barra_y + _barra_altura + 5, "HP: " + string(floor(_player.vida_atual)) + "/" + string(_player.vida_maxima));
 }
 
 // Resetar configurações de desenho

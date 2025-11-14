@@ -2,13 +2,29 @@
 current_gui_height = display_get_gui_height();
 menu_margin_top = current_gui_height /2.13;
 
-// Inputs
+// Inputs - Keyboard
 var _key_up = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
 var _key_down = keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"));
 var _key_left = keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A"));
 var _key_right = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"));
 var _key_confirm = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space);
 var _key_back = keyboard_check_pressed(vk_escape);
+
+// Inputs - Gamepad
+var _gp_up = gamepad_button_check_pressed(0, gp_padu) || gamepad_axis_value(0, gp_axislv) < -0.5;
+var _gp_down = gamepad_button_check_pressed(0, gp_padd) || gamepad_axis_value(0, gp_axislv) > 0.5;
+var _gp_left = gamepad_button_check_pressed(0, gp_padl) || gamepad_axis_value(0, gp_axislh) < -0.5;
+var _gp_right = gamepad_button_check_pressed(0, gp_padr) || gamepad_axis_value(0, gp_axislh) > 0.5;
+var _gp_confirm = gamepad_button_check_pressed(0, gp_face1); // A/Cross
+var _gp_back = gamepad_button_check_pressed(0, gp_face2); // B/Circle
+
+// Combine inputs
+_key_up = _key_up || _gp_up;
+_key_down = _key_down || _gp_down;
+_key_left = _key_left || _gp_left;
+_key_right = _key_right || _gp_right;
+_key_confirm = _key_confirm || _gp_confirm;
+_key_back = _key_back || _gp_back;
 
 switch(global.game_state)
 {
@@ -49,7 +65,7 @@ switch(global.game_state)
 		// action
 	    if (_key_confirm)
 		{
-	        scr_pause_logic(pause_options);
+	        scr_pause_logic(pause_index);
 	    }
 	    // mouse detection will be implemented on drawGUI
 	break;
@@ -60,6 +76,9 @@ switch(global.game_state)
 		// Lógica de controle (Teclado e Mouse)
 		// ------------------------------------------------------------------------------------
 
+		// Diminuir o temporizador de input (mesmo sistema do menu pause)
+		time_input = max(0, time_input - 1);
+
 		// Largura da tela
 		var _w = display_get_gui_width();
 		// Posição inicial do menu (centralizado)
@@ -67,23 +86,33 @@ switch(global.game_state)
 		var _start_y = menu_margin_top;
 
 		// ------------------------------------------------------------------------------------
-		// TECLADO (Navegação Vertical)
+		// TECLADO (Navegação Vertical) - COM TIMER
 		// ------------------------------------------------------------------------------------
 
-		if (_key_up) {
-		    current_option = (current_option - 1 + array_length(options)) % array_length(options);
-		}
+		if (time_input == 0) {
+			var _change_selection = false;
+			
+			if (_key_up) {
+			    current_option = (current_option - 1 + array_length(options)) % array_length(options);
+			    _change_selection = true;
+			}
 
-		if (_key_down) {
-		    current_option = (current_option + 1) % array_length(options);
+			if (_key_down) {
+			    current_option = (current_option + 1) % array_length(options);
+			    _change_selection = true;
+			}
+			
+			if (_change_selection) {
+				time_input = delay_input;
+			}
 		}
 
 		// ------------------------------------------------------------------------------------
-		// TECLADO (Alteração Horizontal)
+		// TECLADO (Alteração Horizontal) - COM TIMER
 		// ------------------------------------------------------------------------------------
 		var _option = options[current_option];
 
-		if (_key_left || _key_right) {
+		if (time_input == 0 && (_key_left || _key_right)) {
 		    switch (_option.type) {
 		        case OPTION_TYPE.TOGGLE:
 		            // Troca o valor da opção (ex: Sim/Não)
@@ -94,6 +123,7 @@ switch(global.game_state)
             
 		            // Aplica o script da opção
 		            _option.script(_option.current_val);
+		            time_input = delay_input; // Adiciona delay
 		            break;
             
 		        case OPTION_TYPE.SLIDER:
@@ -106,6 +136,7 @@ switch(global.game_state)
             
 		            // Aplica o script da opção
 		            _option.script(_option.current_val);
+		            time_input = delay_input; // Adiciona delay
 		            break;
             
 		        case OPTION_TYPE.ACTION:
@@ -206,8 +237,10 @@ switch(global.game_state)
 	break;
 }
 
-// pause menu action
-if (_key_back) 
+// pause menu action - keyboard + gamepad
+var _pause_key = keyboard_check_pressed(vk_escape) || gamepad_button_check_pressed(0, gp_start); // ESC or Start button
+
+if (_pause_key) 
 {
 	// se estiver no menu
 	if (room == rm_menu)
@@ -219,18 +252,30 @@ if (_key_back)
 	}
 	else
 	{
-		// não está no menu
+		// não está no menu - dentro do jogo
 	    if (global.game_state == GAMING_STATE) 
 		{
+			// PAUSAR O JOGO: desativar todas as instâncias exceto controllers
+	        instance_deactivate_all(true);
+			instance_activate_object(pause_controller);
+			
+			// Ativar HUD somente se ele existir
+			if (instance_exists(obj_hud)) {
+				instance_activate_object(obj_hud);
+			}
+			
 	        global.game_state = PAUSED_STATE;
 	    } 
 		else if (global.game_state == PAUSED_STATE)
 		{
+			// RETOMAR O JOGO: reativar todas as instâncias
+			instance_activate_all();
+			
 	        global.game_state = GAMING_STATE;
 	    }
-		else
+		else if (global.game_state == OPTIONS_STATE)
 		{
-			// options
+			// voltar do menu de options para pause
 			global.game_state = PAUSED_STATE;	
 		}
 	}

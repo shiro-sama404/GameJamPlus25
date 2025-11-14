@@ -5,6 +5,16 @@ if (global.game_state == GAMING_STATE)
 	var key_up = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
 	var key_down = keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"));
 	var key_confirm = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space);
+	
+	// Mapping gamepad inputs
+	var gp_up = gamepad_button_check_pressed(0, gp_padu) || gamepad_axis_value(0, gp_axislv) < -0.5;
+	var gp_down = gamepad_button_check_pressed(0, gp_padd) || gamepad_axis_value(0, gp_axislv) > 0.5;
+	var gp_confirm = gamepad_button_check_pressed(0, gp_face1); // A/Cross
+	
+	// Combine inputs
+	key_up = key_up || gp_up;
+	key_down = key_down || gp_down;
+	key_confirm = key_confirm || gp_confirm;
 
 	// 
 	if (key_down)

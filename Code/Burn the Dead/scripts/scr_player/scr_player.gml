@@ -261,13 +261,24 @@ function player_estado_jump_kick2(){
 	if sprite_index != spr_player_jump_attack2{
 		sprite_index = spr_player_jump_attack2;
 		image_index = 0;
-		velh = 0;
+		velh = face * 3; // Movimento horizontal inicial
+	}
+	
+	// Manter movimento horizontal durante o ataque
+	if (image_index < image_number - 1) {
+		velh = face * 2; // Movimento constante durante a animação
 	}
 	
 	if (image_index >= image_number -1){
 		image_index = image_number -1;
 		gravidade(grav*10);
-		velh = face * 12;
+		velh = face * 12; // Impulso final maior
+		
+		// Limpar hitbox de dano quando a animação termina
+		if (is_struct(my_damage)) {
+			delete my_damage;
+			my_damage = noone;
+		}
 	}
 }
 

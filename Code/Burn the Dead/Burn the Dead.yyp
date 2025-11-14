@@ -54,6 +54,7 @@
     {"id":{"name":"obj_controla_cenario","path":"objects/obj_controla_cenario/obj_controla_cenario.yy",},},
     {"id":{"name":"obj_enemy1","path":"objects/obj_enemy1/obj_enemy1.yy",},},
     {"id":{"name":"obj_entidade","path":"objects/obj_entidade/obj_entidade.yy",},},
+    {"id":{"name":"obj_hud","path":"objects/obj_hud/obj_hud.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_sombra","path":"objects/obj_sombra/obj_sombra.yy",},},
     {"id":{"name":"pause_controller","path":"objects/pause_controller/pause_controller.yy",},},

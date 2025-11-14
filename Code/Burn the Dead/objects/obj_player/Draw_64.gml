@@ -1,1 +1,1 @@
-draw_text(10,10,vida_atual);
+//draw_text(10,10,vida_atual);
