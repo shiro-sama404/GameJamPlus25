@@ -88,8 +88,8 @@ if (key_confirm)
 		case 0:
 			room_goto_next();
 			break;
-		case 1:
-			// opções
+		case 1: // opções
+			global.game_state = OPTIONS_STATE;
 			break;
 		case 2: // leave
 			game_end();
