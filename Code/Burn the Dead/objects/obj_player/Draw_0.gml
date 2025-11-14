@@ -10,3 +10,4 @@ if (is_struct(my_damage)) {
 	my_damage.desenha_area();
 }
 
+my_hurtbox.desenha_area();

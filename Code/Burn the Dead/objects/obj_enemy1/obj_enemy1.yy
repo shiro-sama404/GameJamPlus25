@@ -9,7 +9,12 @@
   ],
   "managed":true,
   "name":"obj_enemy1",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_entidade","path":"objects/obj_entidade/obj_entidade.yy",},"propertyId":{"name":"y2","path":"objects/obj_entidade/obj_entidade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"-40",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_entidade","path":"objects/obj_entidade/obj_entidade.yy",},"propertyId":{"name":"x2","path":"objects/obj_entidade/obj_entidade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"15",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_entidade","path":"objects/obj_entidade/obj_entidade.yy",},"propertyId":{"name":"x1","path":"objects/obj_entidade/obj_entidade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"-15",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_entidade","path":"objects/obj_entidade/obj_entidade.yy",},"propertyId":{"name":"y1","path":"objects/obj_entidade/obj_entidade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0",},
+  ],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",

@@ -37,3 +37,7 @@ function scr_dano(_x1, _y1, _x2, _y2) constructor
 	    my_z = other.z;
 	}
 }
+
+function scr_hurtbox(_x1,_y1,_x2,_y2) : scr_dano(_x1,_y1,_x2,_y2) constructor{
+
+}

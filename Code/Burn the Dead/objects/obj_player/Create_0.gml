@@ -10,6 +10,7 @@ grav = .15;
 face = 1;
 buffer_attack = false;
 my_damage = noone;
+my_hurtbox = new scr_hurtbox(x1,y1,x2,y2);
 
 up		= noone;
 down	= noone;
