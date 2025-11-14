@@ -1,9 +1,9 @@
 {
   "$GMSprite":"v2",
   "%Name":"spr_player_jump_attack",
-  "bboxMode":0,
-  "bbox_bottom":57,
-  "bbox_left":29,
+  "bboxMode":2,
+  "bbox_bottom":51,
+  "bbox_left":42,
   "bbox_right":68,
   "bbox_top":10,
   "collisionKind":1,
@@ -45,7 +45,13 @@
     "backdropYOffset":0.0,
     "events":{
       "$KeyframeStore<MessageEventKeyframe>":"",
-      "Keyframes":[],
+      "Keyframes":[
+        {"$Keyframe<MessageEventKeyframe>":"","Channels":{
+            "0":{"$MessageEventKeyframe":"","Events":[
+                "atacar",
+              ],"resourceType":"MessageEventKeyframe","resourceVersion":"2.0",},
+          },"Disabled":false,"id":"1c6aa141-5919-4d5c-bc31-7b8100969dbc","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<MessageEventKeyframe>","resourceVersion":"2.0","Stretch":false,},
+      ],
       "resourceType":"KeyframeStore<MessageEventKeyframe>",
       "resourceVersion":"2.0",
     },

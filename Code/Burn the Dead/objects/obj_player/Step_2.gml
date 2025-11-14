@@ -1,1 +1,3 @@
+event_inherited();
+
 move_and_collide(velh, velv, obj_chao, 12,0,0,vel_max, vel_max);

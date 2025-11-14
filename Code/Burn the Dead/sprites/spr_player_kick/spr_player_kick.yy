@@ -1,11 +1,11 @@
 {
   "$GMSprite":"v2",
   "%Name":"spr_player_kick",
-  "bboxMode":0,
-  "bbox_bottom":45,
-  "bbox_left":0,
-  "bbox_right":55,
-  "bbox_top":0,
+  "bboxMode":2,
+  "bbox_bottom":28,
+  "bbox_left":17,
+  "bbox_right":74,
+  "bbox_top":8,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
@@ -47,7 +47,13 @@
     "backdropYOffset":0.0,
     "events":{
       "$KeyframeStore<MessageEventKeyframe>":"",
-      "Keyframes":[],
+      "Keyframes":[
+        {"$Keyframe<MessageEventKeyframe>":"","Channels":{
+            "0":{"$MessageEventKeyframe":"","Events":[
+                "atacar",
+              ],"resourceType":"MessageEventKeyframe","resourceVersion":"2.0",},
+          },"Disabled":false,"id":"b6ae72ba-1d29-4b75-a7a4-e3b05b23c774","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<MessageEventKeyframe>","resourceVersion":"2.0","Stretch":false,},
+      ],
       "resourceType":"KeyframeStore<MessageEventKeyframe>",
       "resourceVersion":"2.0",
     },
