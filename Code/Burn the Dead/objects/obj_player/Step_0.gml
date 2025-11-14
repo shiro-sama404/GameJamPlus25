@@ -9,6 +9,19 @@ if (vibration_timer > 0) {
     }
 }
 
+// Controlar cooldown do dash
+if (dash_timer > 0) {
+    dash_timer--;
+    if (dash_timer <= 0) {
+        dash_disponivel = true; // Dash disponível novamente
+    }
+}
+
+// Atualizar efeito de rastro
+if (dash_ativo || array_length(dash_trail) > 0) {
+    atualizar_rastro_dash();
+}
+
 if (is_struct(my_damage)){
 	atualizar_posicao_struct(my_damage, x, y, z);
 	

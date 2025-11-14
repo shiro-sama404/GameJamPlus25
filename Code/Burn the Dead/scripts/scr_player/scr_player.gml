@@ -29,6 +29,7 @@ function player_controla(){
 	var _kb_right = keyboard_check(ord("D"));
 	var _kb_jump = keyboard_check_pressed(ord("K"));
 	var _kb_attack = keyboard_check_pressed(ord("J"));
+	var _kb_dash = keyboard_check_pressed(vk_shift); // Shift para dash
 	
 	// Input de gamepad (Player 1 - Gamepad 0)
 	var _gp_up = gamepad_button_check(0, gp_padu) || gamepad_axis_value(0, gp_axislv) < -0.5;
@@ -37,6 +38,7 @@ function player_controla(){
 	var _gp_right = gamepad_button_check(0, gp_padr) || gamepad_axis_value(0, gp_axislh) > 0.5;
 	var _gp_jump = gamepad_button_check_pressed(0, gp_face1); // A/Cross - Pular
 	var _gp_attack = gamepad_button_check_pressed(0, gp_face2) || gamepad_button_check_pressed(0, gp_face3); // B/Circle ou X/Square - Atacar
+	var _gp_dash = gamepad_button_check_pressed(0, gp_shoulderlb) || gamepad_button_check_pressed(0, gp_shoulderrb); // LB/RB - Dash
 	
 	// Combinar inputs (teclado OU gamepad)
 	up = _kb_up || _gp_up;
@@ -45,6 +47,7 @@ function player_controla(){
 	right = _kb_right || _gp_right;
 	jump = _kb_jump || _gp_jump;
 	attack = _kb_attack || _gp_attack;
+	dash = _kb_dash || _gp_dash;
 
 	// Calcular direção do movimento
 	var _input_h = right - left;
@@ -79,6 +82,16 @@ function player_estado_idle(){
 	if (attack){
 		estado = player_estado_ataque;
 	}
+	
+	// Verificar dash
+	if (dash && dash_disponivel) {
+		// Determinar direção do dash baseado na face atual ou input
+		dash_direcao = face; // Usar direção atual
+		if (left) dash_direcao = -1;
+		if (right) dash_direcao = 1;
+		
+		iniciar_dash();
+	}
 }
 
 function player_estado_walk(){
@@ -94,6 +107,16 @@ function player_estado_walk(){
 	}
 	if (attack){
 		estado = player_estado_ataque;
+	}
+	
+	// Verificar dash
+	if (dash && dash_disponivel) {
+		// Determinar direção do dash baseado no movimento atual
+		dash_direcao = face;
+		if (left) dash_direcao = -1;
+		if (right) dash_direcao = 1;
+		
+		iniciar_dash();
 	}
 }
 
@@ -210,5 +233,109 @@ function player_estado_jump_kick2(){
 		image_index = image_number -1;
 		gravidade(grav*10);
 		velh = face * 12;
+	}
+}
+
+// Função para iniciar o dash
+function iniciar_dash() {
+	dash_ativo = true;
+	dash_disponivel = false;
+	dash_timer = dash_cooldown;
+	dash_timer_ativo = dash_duracao;
+	
+	// Limpar rastro anterior
+	dash_trail = [];
+	
+	// Mudar para estado de dash
+	estado = player_estado_dash;
+	
+	// Vibração leve no dash
+	gamepad_vibrate_dash();
+}
+
+// Estado do dash
+function player_estado_dash() {
+	// Movimento rápido na direção do dash
+	velh = dash_direcao * dash_velocidade;
+	velv = 0; // Dash é só horizontal
+	
+	// Atualizar face
+	face = dash_direcao;
+	
+	// Sprite de movimento rápido (usar sprite de walk por enquanto)
+	sprite_index = spr_player_walk;
+	
+	// Adicionar posição atual ao rastro
+	adicionar_rastro_dash();
+	
+	// Reduzir timer do dash
+	dash_timer_ativo--;
+	
+	// Verificar se o dash terminou
+	if (dash_timer_ativo <= 0) {
+		dash_ativo = false;
+		// Voltar ao movimento normal
+		if (velh != 0) {
+			estado = player_estado_walk;
+		} else {
+			estado = player_estado_idle;
+		}
+	}
+}
+
+// Função para adicionar posição ao rastro
+function adicionar_rastro_dash() {
+	// Adicionar posição atual ao início da array
+	array_insert(dash_trail, 0, {
+		pos_x: x,
+		pos_y: y,
+		alpha: 1.0,
+		sprite: sprite_index,
+		image: image_index,
+		face_dir: face
+	});
+	
+	// Limitar número de rastros
+	while (array_length(dash_trail) > dash_trail_max) {
+		array_pop(dash_trail);
+	}
+}
+
+// Função para atualizar o rastro do dash
+function atualizar_rastro_dash() {
+	// Reduzir alpha de todos os rastros
+	for (var i = 0; i < array_length(dash_trail); i++) {
+		dash_trail[i].alpha -= 0.15; // Desaparece rapidamente
+		
+		// Remover rastros invisíveis
+		if (dash_trail[i].alpha <= 0) {
+			array_delete(dash_trail, i, 1);
+			i--; // Ajustar índice após remoção
+		}
+	}
+}
+
+// Função para desenhar o rastro do dash
+function desenhar_rastro_dash() {
+	// Desenhar todos os rastros com transparência decrescente
+	for (var i = array_length(dash_trail) - 1; i >= 0; i--) {
+		var _trail = dash_trail[i];
+		
+		// Calcular alpha e cor
+		var _alpha = _trail.alpha;
+		var _color = c_white; // Cor branca para ghosting
+		
+		// Desenhar sprite do rastro
+		draw_sprite_ext(
+			_trail.sprite,
+			_trail.image,
+			_trail.pos_x,
+			_trail.pos_y,
+			_trail.face_dir,  // scale X baseado na direção
+			1,               // scale Y
+			0,               // rotation
+			_color,          // color
+			_alpha * 0.6     // transparência com multiplicador para efeito mais sutil
+		);
 	}
 }

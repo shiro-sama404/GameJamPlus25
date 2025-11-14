@@ -35,6 +35,11 @@ function stop_gamepad_vibration(){
     gamepad_set_vibration(0, 0, 0);
 }
 
+// Função para vibração leve durante dash
+function gamepad_vibrate_dash(){
+    gamepad_set_vibration(0, 0.1, 0.1); // Vibração muito suave para dash
+}
+
 function gravidade (_grav = .2){
 	z += velz;
 	

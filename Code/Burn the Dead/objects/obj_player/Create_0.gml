@@ -32,9 +32,24 @@ left	= noone;
 right	= noone;
 jump	= noone;
 attack	= noone;
+dash	= noone;
 
 // Timer para controlar vibração
 vibration_timer = 0;
+
+// Variáveis do dash
+dash_disponivel = true;
+dash_cooldown = 60; // 1 segundo a 60fps
+dash_timer = 0;
+dash_ativo = false;
+dash_duracao = 12; // Duração do dash em frames
+dash_timer_ativo = 0;
+dash_velocidade = 8; // Velocidade do dash
+dash_direcao = 0; // Direção do dash (-1 esquerda, 1 direita)
+
+// Lista para armazenar posições do rastro
+dash_trail = [];
+dash_trail_max = 8; // Máximo de rastros
 
 // Sobrescrever função de morte
 morrer = function() {
@@ -50,6 +65,7 @@ estado_ataque = method(self, player_estado_ataque);
 estado_pulo = method(self, player_estado_pulo);
 estado_jump_kick = method(self, player_estado_jump_kick);
 estado_jump_kick2 = method(self, player_estado_jump_kick2);
+estado_dash = method(self, player_estado_dash);
 
 estado = estado_walk;
 
