@@ -186,3 +186,43 @@ function enemy_estado_ataque(){
 		}
 	}
 }
+
+// Estado de morte - reproduz animação de morte e controla fade out
+function enemy_estado_morte(){
+	// Parar qualquer movimento
+	velh = 0;
+	velv = 0;
+	velz = 0;
+	
+	// Limpar hitbox de dano se existir
+	if (is_struct(my_damage)) {
+		delete my_damage;
+		my_damage = noone;
+	}
+	
+	// Controlar animação de morte
+	if (!morte_animacao_completa) {
+		// Verificar se animação terminou
+		if (image_index >= image_number - 1) {
+			// Travar no último frame
+			image_index = image_number - 1;
+			image_speed = 0; // Parar a animação
+			morte_animacao_completa = true;
+			morte_timer_fade = morte_fade_duracao; // Iniciar timer de 3 segundos
+		}
+	} else {
+		// Garantir que permanece no último frame
+		image_index = image_number - 1;
+		image_speed = 0;
+		
+		// Animação completa, iniciar fade out
+		if (morte_timer_fade > 0) {
+			morte_timer_fade--;
+			// Calcular alpha para fade out suave
+			morte_alpha = morte_timer_fade / morte_fade_duracao;
+		} else {
+			// Fade completo, destruir instância
+			instance_destroy();
+		}
+	}
+}

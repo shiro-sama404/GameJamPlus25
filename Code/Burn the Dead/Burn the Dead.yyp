@@ -44,6 +44,7 @@
     {"id":{"name":"fore","path":"sprites/fore/fore.yy",},},
     {"id":{"name":"spr_colisor","path":"sprites/spr_colisor/spr_colisor.yy",},},
     {"id":{"name":"spr_enemy_attack1","path":"sprites/spr_enemy_attack1/spr_enemy_attack1.yy",},},
+    {"id":{"name":"spr_enemy_death","path":"sprites/spr_enemy_death/spr_enemy_death.yy",},},
     {"id":{"name":"spr_enemy_idle","path":"sprites/spr_enemy_idle/spr_enemy_idle.yy",},},
     {"id":{"name":"spr_enemy_walk","path":"sprites/spr_enemy_walk/spr_enemy_walk.yy",},},
     {"id":{"name":"spr_player_caindo","path":"sprites/spr_player_caindo/spr_player_caindo.yy",},},

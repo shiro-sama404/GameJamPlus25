@@ -37,16 +37,23 @@ alvo = noone;
 
 timer_ataque = espera_estado;
 
-// Sobrescrever função de morte
-morrer = function() {
-    // Destruir o inimigo quando morre
-    instance_destroy();
-}
+// Variáveis para controle da animação de morte
+morte_animacao_completa = false;
+morte_timer_fade = 0;
+morte_fade_duracao = 180; // 3 segundos a 60fps
+morte_alpha = 1.0;
 
 // Sobrescrever função de morte
 morrer = function() {
-    // Destruir o inimigo quando morre
-    instance_destroy();
+    // Mudar para estado de morte ao invés de destruir imediatamente
+    estado = estado_morte;
+    sprite_index = spr_enemy_death;
+    image_index = 0;
+    
+    // Parar movimento
+    velh = 0;
+    velv = 0;
+    velz = 0;
 }
 
 // Importar funções específicas do inimigo
@@ -55,5 +62,6 @@ estado_parado = method(self, enemy_estado_parado);
 estado_andando = method(self, enemy_estado_andando);
 estado_persegue = method(self, enemy_estado_persegue);
 estado_ataque = method(self, enemy_estado_ataque);
+estado_morte = method(self, enemy_estado_morte);
 
 estado = estado_andando;

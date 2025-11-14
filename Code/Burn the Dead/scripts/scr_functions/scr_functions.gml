@@ -160,7 +160,8 @@ function checar_colisao_hitbox(hitbox1, hitbox2) {
 
 // Função para aplicar dano entre entidades
 function aplicar_dano_entre_entidades(atacante, alvo) {
-    if (!is_struct(atacante.my_damage) || alvo.morreu) return false;
+    // Verificar se atacante ou alvo estão mortos
+    if (!is_struct(atacante.my_damage) || alvo.morreu || atacante.morreu) return false;
     
     if (checar_colisao_hitbox(atacante.my_damage, alvo.my_hurtbox)) {
         // Verificar se este alvo já foi atingido por este ataque específico

@@ -1,3 +1,8 @@
+// Aplicar alpha da morte se estiver morrendo
+if (morreu && variable_instance_exists(id, "morte_alpha")) {
+    image_alpha = morte_alpha;
+}
+
 // Inherit the parent event
 event_inherited();
 
