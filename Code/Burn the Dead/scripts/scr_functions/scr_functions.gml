@@ -16,7 +16,7 @@ function apply_gamepad_vibration(_left_motor = 0.3, _right_motor = 0.3){
 
 // Função para vibração suave quando acerta golpe
 function gamepad_vibrate_hit(){
-    gamepad_set_vibration(0, 0.15, 0.2); // Vibração suave para acerto
+    gamepad_set_vibration(0, 1.4, 0.2); // Vibração suave para acerto
 }
 
 // Função para vibração quando toma dano (para ser usada pelo player)
@@ -37,7 +37,36 @@ function stop_gamepad_vibration(){
 
 // Função para vibração leve durante dash
 function gamepad_vibrate_dash(){
-    gamepad_set_vibration(0, 0.1, 0.1); // Vibração muito suave para dash
+    gamepad_set_vibration(0, 1.6, 0.2); // Vibração rápida para dash
+    // Timer curto para o dash
+    if (instance_exists(obj_player)) {
+        with(obj_player) {
+            vibration_timer = 8; // 8 frames para dash
+        }
+    }
+}
+
+// Função para vibração de ataque com escalonamento de combo
+function gamepad_vibrate_attack(_combo_level = 1){
+    var _base_intensity = 0.1;
+    var _combo_multiplier = 1 + (_combo_level - 1) * 0.3; // Aumenta 30% por nível de combo
+    
+    var _left_motor = _base_intensity * _combo_multiplier;
+    var _right_motor = (_base_intensity + 0.05) * _combo_multiplier; // Motor direito um pouco mais forte
+    
+    // Limitar intensidade máxima
+    _left_motor = min(_left_motor, 0.8);
+    _right_motor = min(_right_motor, 0.9);
+    
+    gamepad_set_vibration(0, _left_motor, _right_motor);
+    
+    // Timer baseado no nível do combo
+    var _vibration_duration = 6 + (_combo_level * 2); // Duração cresce com combo
+    if (instance_exists(obj_player)) {
+        with(obj_player) {
+            vibration_timer = _vibration_duration;
+        }
+    }
 }
 
 function gravidade (_grav = .2){

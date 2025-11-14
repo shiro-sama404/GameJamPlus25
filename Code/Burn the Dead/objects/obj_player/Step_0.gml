@@ -17,6 +17,14 @@ if (dash_timer > 0) {
     }
 }
 
+// Controlar sistema de combo
+if (combo_timer > 0) {
+    combo_timer--;
+    if (combo_timer <= 0) {
+        combo_count = 0; // Resetar combo após timeout
+    }
+}
+
 // Atualizar efeito de rastro
 if (dash_ativo || array_length(dash_trail) > 0) {
     atualizar_rastro_dash();

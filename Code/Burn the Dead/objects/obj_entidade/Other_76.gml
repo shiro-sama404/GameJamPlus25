@@ -12,8 +12,8 @@ if (layer_instance_get_instance(_elemento) == id){
 	    {
 			// Criar hitbox específica baseada no objeto
 			if (object_index == obj_enemy1) {
-				// Hitbox específica do inimigo - alcance de 35 pixels
-				my_damage = new scr_dano(face * 8, -22, face * 32, -10);
+				// Hitbox específica do inimigo - alcance melhorado e mais consistente
+				my_damage = new scr_dano(face * 5, -25, face * 30, -8);
 			} else {
 				// Hitbox padrão usando bbox do sprite
 				var _x1, _y1, _x2, _y2;

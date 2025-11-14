@@ -86,14 +86,15 @@ function enemy_estado_persegue(){
 	var _distancia_total = point_distance(my_x, my_y, ponto_x, ponto_y);
 	
 	// Verificar se está na distância de ataque E bem alinhado no eixo Y
-	var _tolerancia_y = 12; // Tolerância mais restrita para alinhamento vertical
-	var _distancia_ideal = alcance_ataque - 5; // Distância um pouco menor que o alcance máximo
+	var _tolerancia_y = 15; // Tolerância um pouco maior para alinhamento vertical
+	var _distancia_ideal = 25; // Distância mais conservadora baseada na hitbox real (32px)
+	var _alcance_x_maximo = 28; // Baseado na hitbox real do inimigo
 	
-	// Condições mais rigorosas para atacar: 
-	// 1. Estar na distância ideal (não no máximo)
-	// 2. Estar bem alinhado verticalmente
-	// 3. Estar aproximadamente na mesma altura (não muito acima/abaixo)
-	if (_distancia_total <= _distancia_ideal && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs <= alcance_ataque) {
+	// Condições mais precisas para atacar baseadas na hitbox real: 
+	// 1. Estar dentro do alcance real da hitbox (25 pixels)
+	// 2. Estar bem alinhado verticalmente (15 pixels)
+	// 3. Estar na distância X correta para a hitbox acertar
+	if (_distancia_total <= _distancia_ideal && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs <= _alcance_x_maximo) {
 		// Parar movimento e atacar
 		velh = 0;
 		velv = 0;
@@ -158,10 +159,12 @@ function enemy_estado_ataque(){
 	if (instance_exists(alvo)) {
 		var _dist_player = point_distance(x, y, alvo.x, alvo.y);
 		var _dist_y = abs((alvo.y - alvo.sprite_height / 2) - (y - sprite_height / 2));
-		var _tolerancia_y = 12; // Mesma tolerância da perseguição
+		var _dist_x = abs(alvo.x - x);
+		var _tolerancia_y = 15; // Mesma tolerância da perseguição
+		var _alcance_x_maximo = 28; // Baseado na hitbox real
 		
-		if (_dist_player > alcance_ataque + 20 || _dist_y > _tolerancia_y + 8) {
-			// Player saiu do alcance ou desalinhamento vertical, voltar a perseguir
+		if (_dist_player > 35 || _dist_y > _tolerancia_y + 5 || _dist_x > _alcance_x_maximo + 5) {
+			// Player saiu do alcance efetivo, voltar a perseguir
 			estado = enemy_estado_persegue;
 			return;
 		}

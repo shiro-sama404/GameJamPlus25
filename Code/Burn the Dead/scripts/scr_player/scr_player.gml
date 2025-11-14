@@ -29,7 +29,7 @@ function player_controla(){
 	var _kb_right = keyboard_check(ord("D"));
 	var _kb_jump = keyboard_check_pressed(ord("K"));
 	var _kb_attack = keyboard_check_pressed(ord("J"));
-	var _kb_dash = keyboard_check_pressed(vk_shift); // Shift para dash
+	var _kb_dash = keyboard_check_pressed(ord("L")); // Shift para dash
 	
 	// Input de gamepad (Player 1 - Gamepad 0)
 	var _gp_up = gamepad_button_check(0, gp_padu) || gamepad_axis_value(0, gp_axislv) < -0.5;
@@ -141,6 +141,8 @@ function player_estado_ataque(){
 		sprite_index = spr_player_kick;
 		// Limpar lista de atacantes para permitir novo dano
 		limpar_atacantes_de_entidades();
+		// Registrar primeiro ataque do combo
+		registrar_ataque_combo();
 	}
 	
 	if _attack && image_index >= image_number -1 {
@@ -150,6 +152,8 @@ function player_estado_ataque(){
 			buffer_attack = false; 
 			// Limpar lista de atacantes para permitir novo dano
 			limpar_atacantes_de_entidades();
+			// Registrar segundo ataque do combo
+			registrar_ataque_combo();
 		}
 		if sprite_index == spr_player_punch1 && buffer_attack{
 			sprite_index = spr_player_jump_attack;
@@ -157,6 +161,8 @@ function player_estado_ataque(){
 			buffer_attack = false; 
 			// Limpar lista de atacantes para permitir novo dano
 			limpar_atacantes_de_entidades();
+			// Registrar terceiro ataque do combo (finalizador)
+			registrar_ataque_combo();
 		}
 	}
 	
@@ -337,5 +343,22 @@ function desenhar_rastro_dash() {
 			_color,          // color
 			_alpha * 0.6     // transparência com multiplicador para efeito mais sutil
 		);
+	}
+}
+
+// Função para registrar ataque e controlar combo
+function registrar_ataque_combo() {
+	// Incrementar contador de combo
+	combo_count++;
+	
+	// Resetar timer de combo
+	combo_timer = combo_timeout;
+	
+	// Aplicar vibração baseada no nível do combo
+	gamepad_vibrate_attack(combo_count);
+	
+	// Limitar combo máximo
+	if (combo_count > 3) {
+		combo_count = 3;
 	}
 }

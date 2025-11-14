@@ -37,6 +37,12 @@ dash	= noone;
 // Timer para controlar vibração
 vibration_timer = 0;
 
+// Sistema de combo para vibração
+combo_count = 0;
+combo_timer = 0;
+combo_timeout = 90; // 1.5 segundos para resetar combo (60fps * 1.5)
+ultimo_ataque_frame = 0;
+
 // Variáveis do dash
 dash_disponivel = true;
 dash_cooldown = 60; // 1 segundo a 60fps
