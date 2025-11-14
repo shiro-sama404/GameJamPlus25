@@ -1,3 +1,11 @@
+// Herdar propriedades da entidade
+event_inherited();
+
+// Configurações específicas do player
+vida_maxima = 100;
+vida_atual = vida_maxima;
+dano = 25;
+
 velh = 0;
 velv = 0;
 velz = 0;
@@ -10,7 +18,13 @@ grav = .15;
 face = 1;
 buffer_attack = false;
 my_damage = noone;
-my_hurtbox = new scr_hurtbox(x1,y1,x2,y2);
+
+// Configurar hurtbox do player
+hurtbox_x1 = -8;
+hurtbox_y1 = -40;
+hurtbox_x2 = 8;
+hurtbox_y2 = 0;
+my_hurtbox = new scr_hurtbox(hurtbox_x1, hurtbox_y1, hurtbox_x2, hurtbox_y2);
 
 up		= noone;
 down	= noone;
@@ -18,6 +32,12 @@ left	= noone;
 right	= noone;
 jump	= noone;
 attack	= noone;
+
+// Sobrescrever função de morte
+morrer = function() {
+    // Reiniciar o jogo quando o player morre
+    game_restart();
+}
 
 
 controla_player = function(){
@@ -31,8 +51,21 @@ jump	= keyboard_check_pressed(ord("K"));
 
 attack	= keyboard_check_pressed(ord("J"));
 
-velh = (right - left) * vel_max;
-velv = (down - up) * vel_max;
+// Calcular direção do movimento
+var _input_h = right - left;
+var _input_v = down - up;
+
+// Normalizar movimento diagonal para manter velocidade constante
+if (_input_h != 0 && _input_v != 0) {
+    // Movimento diagonal - normalizar o vetor
+    var _magnitude = sqrt(_input_h * _input_h + _input_v * _input_v);
+    velh = (_input_h / _magnitude) * vel_max;
+    velv = (_input_v / _magnitude) * vel_max;
+} else {
+    // Movimento em linha reta
+    velh = _input_h * vel_max;
+    velv = _input_v * vel_max;
+}
 
 }
 
@@ -74,8 +107,6 @@ estado_walk = function(){
 }
 
 estado_ataque = function(){
-	
-
 	velv = 0;
 	velh = 0;
 	
@@ -91,6 +122,8 @@ estado_ataque = function(){
 	if sprite_index != spr_player_punch1 && sprite_index != spr_player_kick && sprite_index != spr_player_jump_attack{
 		image_index = 0;
 		sprite_index = spr_player_kick;
+		// Limpar lista de atacantes para permitir novo dano
+		limpar_atacantes_de_entidades();
 	}
 	
 	if _attack && image_index >= image_number -1 {
@@ -98,20 +131,27 @@ estado_ataque = function(){
 			sprite_index = spr_player_punch1;
 			image_index = 0;
 			buffer_attack = false; 
+			// Limpar lista de atacantes para permitir novo dano
+			limpar_atacantes_de_entidades();
 		}
 		if sprite_index == spr_player_punch1 && buffer_attack{
 			sprite_index = spr_player_jump_attack;
 			image_index = 0;
 			buffer_attack = false; 
+			// Limpar lista de atacantes para permitir novo dano
+			limpar_atacantes_de_entidades();
 		}
 	}
-	
 	
 	if (image_index >= image_number-1){
 		estado = estado_idle;
 		buffer_attack = false;
 		
-		delete my_damage;
+		// Limpar hitbox de dano quando a animação termina
+		if (is_struct(my_damage)) {
+			delete my_damage;
+			my_damage = noone;
+		}
 	}
 }
 
@@ -152,15 +192,19 @@ estado_jump_kick = function(){
 	velz =.1;
 
 	if(sprite_index != spr_player_jump_attack){
-
-		
 		sprite_index = spr_player_jump_attack
 		image_index = 0;
+		// Limpar lista de atacantes para permitir novo dano
+		limpar_atacantes_de_entidades();
 	}
 	
 	if (image_index >= image_number - 1){
 		estado = estado_pulo;
-		delete my_damage;
+		// Limpar hitbox de dano quando a animação termina
+		if (is_struct(my_damage)) {
+			delete my_damage;
+			my_damage = noone;
+		}
 	}
 	gravidade(grav); 
 }

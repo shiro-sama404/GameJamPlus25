@@ -1,0 +1,58 @@
+// HUD do Player - Draw GUI Event
+
+// Debug - verificar se o HUD está funcionando
+draw_set_color(c_white);
+draw_text(10, 10, "HUD ATIVO");
+
+// Configurações da barra de vida
+var _margin = 20;
+var _barra_largura = 200;
+var _barra_altura = 20;
+var _barra_x = _margin;
+var _barra_y = _margin + 30; // Movido para baixo do texto debug
+
+// Cor de fundo da barra
+var _cor_fundo = c_black;
+var _cor_vida = c_red;
+var _cor_borda = c_white;
+
+// Procurar o player na room
+var _player = instance_find(obj_player, 0);
+
+// Debug - verificar se encontrou o player
+draw_text(10, 30, "Player encontrado: " + string(_player != noone));
+if (_player != noone) {
+    draw_text(10, 50, "Vida atual: " + string(_player.vida_atual));
+    draw_text(10, 70, "Vida maxima: " + string(_player.vida_maxima));
+    draw_text(10, 90, "Morreu: " + string(_player.morreu));
+}
+
+if (_player != noone && !_player.morreu) {
+    
+    // Calcular porcentagem de vida
+    var _vida_percent = _player.vida_atual / _player.vida_maxima;
+    var _vida_largura = _barra_largura * _vida_percent;
+    
+    // Desenhar fundo da barra
+    draw_set_color(_cor_fundo);
+    draw_rectangle(_barra_x - 2, _barra_y - 2, _barra_x + _barra_largura + 2, _barra_y + _barra_altura + 2, false);
+    
+    // Desenhar barra de vida
+    draw_set_color(_cor_vida);
+    draw_rectangle(_barra_x, _barra_y, _barra_x + _vida_largura, _barra_y + _barra_altura, false);
+    
+    // Desenhar borda
+    draw_set_color(_cor_borda);
+    draw_rectangle(_barra_x - 2, _barra_y - 2, _barra_x + _barra_largura + 2, _barra_y + _barra_altura + 2, true);
+    
+    // Desenhar texto da vida
+    draw_set_color(c_white);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_text(_barra_x, _barra_y + _barra_altura + 5, "Vida: " + string(_player.vida_atual) + "/" + string(_player.vida_maxima));
+}
+
+// Resetar configurações de desenho
+draw_set_color(c_white);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);

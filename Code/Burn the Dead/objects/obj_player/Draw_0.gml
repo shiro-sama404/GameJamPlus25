@@ -7,7 +7,7 @@ event_inherited();
 
 
 if (is_struct(my_damage)) {
-	my_damage.desenha_area();
+	//desenhar_area_struct(my_damage, "damage");
 }
 
-my_hurtbox.desenha_area();
+//desenhar_area_struct(my_hurtbox, "hurtbox");
