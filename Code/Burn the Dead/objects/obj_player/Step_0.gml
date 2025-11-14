@@ -48,4 +48,16 @@ with (obj_enemy1) {
 	}
 }
 
+// Controlar animação de dano
+if (dano_animacao_ativa) {
+    dano_animacao_timer--;
+    
+    if (dano_animacao_timer <= 0) {
+        // Terminar animação de dano
+        dano_animacao_ativa = false;
+        sprite_index = sprite_antes_dano; // Voltar ao sprite anterior
+        image_index = 0;
+    }
+}
+
 atualizar_posicao_struct(my_hurtbox, x, y, z);

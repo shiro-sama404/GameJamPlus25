@@ -16,7 +16,16 @@ function apply_gamepad_vibration(_left_motor = 0.3, _right_motor = 0.3){
 
 // Função para vibração suave quando acerta golpe
 function gamepad_vibrate_hit(){
-    gamepad_set_vibration(0, 1.4, 0.2); // Vibração suave para acerto
+    gamepad_set_vibration(0, 0.15, 0.2); // Vibração suave para acerto
+    // Definir timer no player para parar a vibração automaticamente
+    if (instance_exists(obj_player)) {
+        with(obj_player) {
+            // Só aplicar se não há uma vibração mais forte ativa
+            if (vibration_timer <= 6) {
+                vibration_timer = 8; // 8 frames para hit rápido
+            }
+        }
+    }
 }
 
 // Função para vibração quando toma dano (para ser usada pelo player)
@@ -25,7 +34,7 @@ function gamepad_vibrate_damage_quick(){
     // Definir timer no player para parar a vibração
     if (instance_exists(obj_player)) {
         with(obj_player) {
-            vibration_timer = 12; // 12 frames para duração adequada
+            vibration_timer = 12; // 12 frames para duração adequada - sobrescreve vibração de hit
         }
     }
 }
@@ -37,7 +46,7 @@ function stop_gamepad_vibration(){
 
 // Função para vibração leve durante dash
 function gamepad_vibrate_dash(){
-    gamepad_set_vibration(0, 1.6, 0.2); // Vibração rápida para dash
+    gamepad_set_vibration(0, 1.7, 0.2); // Vibração rápida para dash
     // Timer curto para o dash
     if (instance_exists(obj_player)) {
         with(obj_player) {

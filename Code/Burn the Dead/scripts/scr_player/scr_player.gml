@@ -67,7 +67,10 @@ function player_controla(){
 }
 
 function player_estado_idle(){
-	sprite_index = spr_player_idle;
+	// Só mudar sprite se não estiver em animação de dano
+	if (!dano_animacao_ativa) {
+		sprite_index = spr_player_idle;
+	}
 	player_controla();
 	
 	//saindo do estado
@@ -95,7 +98,10 @@ function player_estado_idle(){
 }
 
 function player_estado_walk(){
-	sprite_index = spr_player_walk;
+	// Só mudar sprite se não estiver em animação de dano
+	if (!dano_animacao_ativa) {
+		sprite_index = spr_player_walk;
+	}
 	player_controla();
 	
 	if velh == 0 && velv == 0{
@@ -181,8 +187,11 @@ function player_estado_ataque(){
 function player_estado_pulo(){
 	if (sprite_index != spr_player_jump && velz <=0){
 		if (sprite_index != spr_player_jump_attack){
-			sprite_index = spr_player_jump;
-			image_index = 0;
+			// Só mudar sprite se não estiver em animação de dano
+			if (!dano_animacao_ativa) {
+				sprite_index = spr_player_jump;
+				image_index = 0;
+			}
 		}
 	}
 	player_controla();
@@ -193,7 +202,10 @@ function player_estado_pulo(){
 	}
 	
 	if (velz > 0){
-		sprite_index = spr_player_caindo;
+		// Só mudar sprite se não estiver em animação de dano
+		if (!dano_animacao_ativa) {
+			sprite_index = spr_player_caindo;
+		}
 	}
 	if (attack){
 		estado = player_estado_jump_kick;
@@ -269,7 +281,10 @@ function player_estado_dash() {
 	face = dash_direcao;
 	
 	// Sprite de movimento rápido (usar sprite de walk por enquanto)
-	sprite_index = spr_player_walk;
+	// Só mudar sprite se não estiver em animação de dano
+	if (!dano_animacao_ativa) {
+		sprite_index = spr_player_walk;
+	}
 	
 	// Adicionar posição atual ao rastro
 	adicionar_rastro_dash();

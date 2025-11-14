@@ -47,6 +47,7 @@
     {"id":{"name":"spr_enemy_idle","path":"sprites/spr_enemy_idle/spr_enemy_idle.yy",},},
     {"id":{"name":"spr_enemy_walk","path":"sprites/spr_enemy_walk/spr_enemy_walk.yy",},},
     {"id":{"name":"spr_player_caindo","path":"sprites/spr_player_caindo/spr_player_caindo.yy",},},
+    {"id":{"name":"spr_player_hurt","path":"sprites/spr_player_hurt/spr_player_hurt.yy",},},
     {"id":{"name":"spr_player_idle","path":"sprites/spr_player_idle/spr_player_idle.yy",},},
     {"id":{"name":"spr_player_jump_attack","path":"sprites/spr_player_jump_attack/spr_player_jump_attack.yy",},},
     {"id":{"name":"spr_player_jump_attack2","path":"sprites/spr_player_jump_attack2/spr_player_jump_attack2.yy",},},
