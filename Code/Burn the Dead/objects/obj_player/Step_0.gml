@@ -17,6 +17,17 @@ if (dash_timer > 0) {
     }
 }
 
+// Controlar impulso do jump kick 2
+if (jump_kick2_impulso && abs(velh) < 3) {
+    // Desativar impulso quando a velocidade diminuir muito
+    jump_kick2_impulso = false;
+}
+
+// Desativar impulso se não estiver no estado jump kick 2
+if (jump_kick2_impulso && estado != player_estado_jump_kick2) {
+    jump_kick2_impulso = false;
+}
+
 // Controlar sistema de combo
 if (combo_timer > 0) {
     combo_timer--;

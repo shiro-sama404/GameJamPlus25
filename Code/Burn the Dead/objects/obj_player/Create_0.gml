@@ -70,6 +70,9 @@ dash_direcao = 0; // Direção do dash (-1 esquerda, 1 direita)
 dash_trail = [];
 dash_trail_max = 8; // Máximo de rastros
 
+// Variável para jump kick 2 de alta velocidade
+jump_kick2_impulso = false;
+
 // Sobrescrever função de morte
 morrer = function() {
     // Reiniciar o jogo quando o player morre

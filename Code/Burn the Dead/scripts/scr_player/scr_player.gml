@@ -262,17 +262,20 @@ function player_estado_jump_kick2(){
 		sprite_index = spr_player_jump_attack2;
 		image_index = 0;
 		velh = face * 3; // Movimento horizontal inicial
+		jump_kick2_impulso = false; // Resetar impulso
 	}
 	
 	// Manter movimento horizontal durante o ataque
 	if (image_index < image_number - 1) {
 		velh = face * 2; // Movimento constante durante a animação
+		jump_kick2_impulso = false;
 	}
 	
 	if (image_index >= image_number -1){
 		image_index = image_number -1;
 		gravidade(grav*10);
-		velh = face * 12; // Impulso final maior
+		velh = face * 15; // Impulso final maior
+		jump_kick2_impulso = true; // Ativar velocidade alta
 		
 		// Limpar hitbox de dano quando a animação termina
 		if (is_struct(my_damage)) {
