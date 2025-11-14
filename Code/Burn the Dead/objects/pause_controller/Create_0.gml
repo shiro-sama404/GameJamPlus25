@@ -27,7 +27,8 @@ delay_input = 8;
 
 // Variáveis de controle de navegação
 current_option = 0;
-menu_margin_top = display_get_gui_height() / 2.13;
+current_gui_height = display_get_gui_height();
+menu_margin_top = current_gui_height / 1.5;
 menu_spacing = 50;
 
 // Fonte e cores
@@ -53,7 +54,7 @@ options = [
         name: "Tela Cheia",
         type: OPTION_TYPE.TOGGLE,
         values: ["Não", "Sim"],
-        current_val: 0, // 0 = Não, 1 = Sim
+        current_val: 1, // 0 = Não, 1 = Sim
         script: function(_value) {
             var _fullscreen = (_value == 1);
             window_set_fullscreen(_fullscreen);

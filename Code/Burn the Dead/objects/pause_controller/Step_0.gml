@@ -1,3 +1,7 @@
+// getting GUI dimensions
+current_gui_height = display_get_gui_height();
+menu_margin_top = current_gui_height /2.13;
+
 // Inputs
 var _key_up = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
 var _key_down = keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"));
@@ -205,18 +209,30 @@ switch(global.game_state)
 // pause menu action
 if (_key_back) 
 {
-    if (global.game_state == GAMING_STATE) 
+	// se estiver no menu
+	if (room == rm_menu)
 	{
-        global.game_state = PAUSED_STATE;
-    } 
-	else if (global.game_state == PAUSED_STATE)
-	{
-        global.game_state = GAMING_STATE;
-    }
+		if (global.game_state == OPTIONS_STATE)
+		{
+			global.game_state = GAMING_STATE;
+		}
+	}
 	else
 	{
-		// options
-		global.game_state = PAUSED_STATE;
+		// não está no menu
+	    if (global.game_state == GAMING_STATE) 
+		{
+	        global.game_state = PAUSED_STATE;
+	    } 
+		else if (global.game_state == PAUSED_STATE)
+		{
+	        global.game_state = GAMING_STATE;
+	    }
+		else
+		{
+			// options
+			global.game_state = PAUSED_STATE;	
+		}
 	}
+	
 }
-

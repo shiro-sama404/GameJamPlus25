@@ -7,7 +7,7 @@ function scr_pause_logic(argument0)
 	switch (_index) {
 	    case 0: // "Voltar ao Jogo"
 	        global.game_state = GAMING_STATE;
-	        instance_activate_all();
+			instance_activate_all();
 	        break;
 
 	    case 1: // "Opções"
