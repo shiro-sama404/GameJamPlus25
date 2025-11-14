@@ -38,6 +38,8 @@
     {"id":{"name":"obj_sombra","path":"objects/obj_sombra/obj_sombra.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"scr_functions","path":"scripts/scr_functions/scr_functions.yy",},},
+    {"id":{"name":"scr_inimigo","path":"scripts/scr_inimigo/scr_inimigo.yy",},},
+    {"id":{"name":"scr_player","path":"scripts/scr_player/scr_player.yy",},},
     {"id":{"name":"back","path":"sprites/back/back.yy",},},
     {"id":{"name":"fore","path":"sprites/fore/fore.yy",},},
     {"id":{"name":"spr_colisor","path":"sprites/spr_colisor/spr_colisor.yy",},},

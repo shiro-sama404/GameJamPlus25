@@ -54,6 +54,11 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
     dano_cooldown_atual = dano_cooldown_tempo;
     flash_dano = 10; // Flash visual por 10 frames
     
+    // Vibração quando o player toma dano (apenas se ainda estiver vivo)
+    if (object_index == obj_player && vida_atual > 0) {
+        gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
+    }
+    
     // Aplicar knockback se necessário
     if (_atacante != noone) {
         aplicar_knockback_por_ataque(_atacante, self);
@@ -72,6 +77,11 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
 receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
     vida_atual -= _quantidade_dano;
     flash_dano = 10; // Flash visual por 10 frames
+    
+    // Vibração quando o player toma dano (apenas se ainda estiver vivo)
+    if (object_index == obj_player && vida_atual > 0) {
+        gamepad_vibrate_damage_quick(); // Vibração rápida quando toma dano
+    }
     
     // Aplicar knockback se necessário
     if (_atacante != noone) {

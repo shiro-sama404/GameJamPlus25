@@ -1,3 +1,40 @@
+// ========================================
+// FUNÇÕES UTILITÁRIAS GERAIS
+// ========================================
+
+// Função para verificar se há gamepad conectado
+function gamepad_connected(){
+    return gamepad_is_connected(0);
+}
+
+// Função para aplicar vibração no gamepad (para feedback tátil)
+function apply_gamepad_vibration(_left_motor = 0.3, _right_motor = 0.3){
+    if (gamepad_connected()) {
+        gamepad_set_vibration(0, _left_motor, _right_motor);
+    }
+}
+
+// Função para vibração suave quando acerta golpe
+function gamepad_vibrate_hit(){
+    gamepad_set_vibration(0, 0.15, 0.2); // Vibração suave para acerto
+}
+
+// Função para vibração quando toma dano (para ser usada pelo player)
+function gamepad_vibrate_damage_quick(){
+    gamepad_set_vibration(0, 0.6, 0.3); // Vibração mais intensa para dano
+    // Definir timer no player para parar a vibração
+    if (instance_exists(obj_player)) {
+        with(obj_player) {
+            vibration_timer = 12; // 12 frames para duração adequada
+        }
+    }
+}
+
+// Função para parar vibração do gamepad
+function stop_gamepad_vibration(){
+    gamepad_set_vibration(0, 0, 0);
+}
+
 function gravidade (_grav = .2){
 	z += velz;
 	
@@ -92,6 +129,11 @@ function aplicar_dano_entre_entidades(atacante, alvo) {
         
         // Adicionar à lista de atingidos deste ataque
         array_push(atacante.my_damage.inimigos_atingidos, alvo);
+        
+        // Feedback tátil para o player quando acertar um golpe
+        if (atacante.object_index == obj_player && gamepad_connected()) {
+            gamepad_vibrate_hit(); // Vibração suave quando acerta golpe
+        }
         
         // Se o atacante for o player, usar função sem cooldown
         if (atacante.object_index == obj_player) {

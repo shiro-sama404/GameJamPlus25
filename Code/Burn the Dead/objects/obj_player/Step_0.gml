@@ -1,6 +1,14 @@
 event_inherited();
 estado();
 
+// Controlar vibração
+if (vibration_timer > 0) {
+    vibration_timer--;
+    if (vibration_timer <= 0) {
+        stop_gamepad_vibration(); // Para a vibração quando timer zera
+    }
+}
+
 if (is_struct(my_damage)){
 	atualizar_posicao_struct(my_damage, x, y, z);
 	
