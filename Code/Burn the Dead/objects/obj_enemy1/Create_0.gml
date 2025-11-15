@@ -60,7 +60,7 @@ morrer = function() {
     
     // Mudar para estado de morte ao invés de destruir imediatamente
     estado = estado_morte;
-    sprite_index = spr_enemy_death;
+    sprite_index = spr_zombie_death;
     image_index = 0;
     
     // Parar movimento

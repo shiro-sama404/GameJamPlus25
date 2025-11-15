@@ -75,6 +75,11 @@ jump_kick2_impulso = false;
 
 // Sobrescrever função de morte
 morrer = function() {
+    // Tocar som de morte
+    if (audio_exists(snd_player_morte)) {
+        audio_play_sound(snd_player_morte, 1, false);
+    }
+    
     // Criar tela de Game Over
     if (!instance_exists(obj_gameover)) {
         instance_create_depth(0, 0, -9999, obj_gameover);
@@ -84,7 +89,7 @@ morrer = function() {
 // Sobrescrever funções de dano para adicionar animação
 receber_dano = function(_quantidade_dano, _atacante = noone) {
     // Não receber dano se estiver defendendo
-    if (sprite_index == spr_player_defense) {
+    if (sprite_index == spr_avulli_defense) {
         return false;
     }
     
@@ -110,6 +115,11 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
     vida_atual -= _quantidade_dano;
     dano_cooldown_atual = dano_cooldown_tempo;
     flash_dano = 10; // Flash visual por 10 frames
+    
+    // Tocar som de dano
+    if (audio_exists(snd_player_dano)) {
+        audio_play_sound(snd_player_dano, 1, false);
+    }
     
     // Ativar invencibilidade
     invencibilidade_ativa = true;
@@ -148,7 +158,7 @@ receber_dano = function(_quantidade_dano, _atacante = noone) {
 
 receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
     // Não receber dano se estiver defendendo
-    if (sprite_index == spr_player_defense) {
+    if (sprite_index == spr_avulli_defense) {
         return false;
     }
     
@@ -159,6 +169,11 @@ receber_dano_sem_cooldown = function(_quantidade_dano, _atacante = noone) {
     
     vida_atual -= _quantidade_dano;
     flash_dano = 10; // Flash visual por 10 frames
+    
+    // Tocar som de dano
+    if (audio_exists(snd_player_dano)) {
+        audio_play_sound(snd_player_dano, 1, false);
+    }
     
     // Ativar invencibilidade
     invencibilidade_ativa = true;

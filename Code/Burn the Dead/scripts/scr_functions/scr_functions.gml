@@ -186,7 +186,7 @@ function aplicar_dano_entre_entidades(atacante, alvo) {
         array_push(atacante.my_damage.inimigos_atingidos, alvo);
         
         // Se o alvo for o player e estiver defendendo, aplicar knockback mas não dano
-        if (alvo.object_index == obj_player && alvo.sprite_index == spr_player_defense) {
+        if (alvo.object_index == obj_player && alvo.sprite_index == spr_avulli_defense) {
             // Aplicar knockback leve de defesa
             var _knockback_direction = point_direction(atacante.x, atacante.y, alvo.x, alvo.y);
             var _knockback_force = 1.5; // Knockback mais leve para defesa

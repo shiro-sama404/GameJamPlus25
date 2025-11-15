@@ -355,7 +355,7 @@ function player_estado_defense() {
 	}
 	
 	// Usar sprite de defesa
-	sprite_index = spr_player_defense;
+	sprite_index = spr_avulli_defense;
 	
 	// Se chegou no último frame, parar a animação
 	if (image_index >= image_number - 1) {

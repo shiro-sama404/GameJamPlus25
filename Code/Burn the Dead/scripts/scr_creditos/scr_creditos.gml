@@ -17,7 +17,7 @@ function creditos_inicializar() {
         "Esse jogo é apenas uma prova de conceito,\nisso não representa a qualidade do produto final",
         "Todos os sprites, códigos e sons foram produzidos do zero por:\nLara, Miguel, Riva, Gilvas, Nathan e Arthur",
 		"Todos os direitos reservados para Quick Yellow Guitars",
-        "Tenha um bom jogo"
+        "Jogue com Gamepad para ter uma melhor experiencia. Tenha um bom jogo"
     ];
     
     // Controle do sistema

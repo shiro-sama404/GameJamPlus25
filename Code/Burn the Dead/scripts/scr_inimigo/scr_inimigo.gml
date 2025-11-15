@@ -8,7 +8,7 @@ function enemy_checa_area(_tamanho_area = 0, _alvo = noone){
 }
 
 function enemy_estado_parado(){
-	sprite_index = spr_enemy_idle;
+	sprite_index = spr_zombie_idle;
 	
 	// Não fazer nada se estiver em recuperação
 	if (recuperacao_ativa) {
@@ -45,7 +45,7 @@ function enemy_estado_parado(){
 function enemy_estado_andando(){
 	// Não fazer nada se estiver em recuperação
 	if (recuperacao_ativa) {
-		sprite_index = spr_enemy_idle;
+		sprite_index = spr_zombie_idle;
 		velh = 0;
 		velv = 0;
 		return;
@@ -55,8 +55,8 @@ function enemy_estado_andando(){
 		timer_ataque--;
 	}
 	
-	if (sprite_index != spr_enemy_walk){
-		sprite_index = spr_enemy_walk;
+	if (sprite_index != spr_zombie_walk){
+		sprite_index = spr_zombie_walk;
 		image_index = 0;
 		
 		// Movimento aleatório mais suave
@@ -88,7 +88,7 @@ function enemy_estado_persegue(){
 	
 	// Não fazer nada se estiver em recuperação
 	if (recuperacao_ativa) {
-		sprite_index = spr_enemy_idle;
+		sprite_index = spr_zombie_idle;
 		velh = 0;
 		velv = 0;
 		return;
@@ -172,8 +172,8 @@ function enemy_estado_persegue(){
 	}
 	
 	// Sprite de caminhada
-	if (sprite_index != spr_enemy_walk){
-		sprite_index = spr_enemy_walk;
+	if (sprite_index != spr_zombie_walk){
+		sprite_index = spr_zombie_walk;
 		image_index = 0;
 	}
 }
@@ -197,8 +197,8 @@ function enemy_estado_ataque(){
 		}
 	}
 
-	if sprite_index != spr_enemy_attack1{
-		sprite_index = spr_enemy_attack1
+	if sprite_index != spr_zombie_attack1{
+		sprite_index = spr_zombie_attack1
 		image_index = 0;
 		// Limpar lista de atacantes para permitir novo dano
 		limpar_atacantes_de_entidades();

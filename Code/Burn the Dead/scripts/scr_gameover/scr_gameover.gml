@@ -66,6 +66,7 @@ function gameover_step() {
                 
                 // Voltar ao menu
 				audio_stop_sound(snd_ruido_fundo);
+				audio_stop_sound(snd_combat_music);
                 room_goto(rm_menu);
             }
             break;

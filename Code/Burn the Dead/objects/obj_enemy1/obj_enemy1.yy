@@ -41,12 +41,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_enemy_idle",
-    "path":"sprites/spr_enemy_idle/spr_enemy_idle.yy",
+    "name":"spr_zombie_walk",
+    "path":"sprites/spr_zombie_walk/spr_zombie_walk.yy",
   },
   "spriteMaskId":{
-    "name":"spr_enemy_idle",
-    "path":"sprites/spr_enemy_idle/spr_enemy_idle.yy",
+    "name":"spr_zombie_walk",
+    "path":"sprites/spr_zombie_walk/spr_zombie_walk.yy",
   },
   "visible":true,
 }

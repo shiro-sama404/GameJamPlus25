@@ -10,7 +10,7 @@ gui_height = display_get_gui_height();
 cutscene_data = [
     {
         text: "Tirana. O Coração pulsante do Império, alimentado pelo Aetherium. Uma maravilha de vapor e progresso... agora, um mausoléu de ferrugem e carne corrompida. Neste pesadelo mecânico, caminha a engenheira Avulli. Uma criadora de vida artificial... agora caçada pelos arquitetos da morte.",
-        sprite: IMG_1794,
+        sprite: _1,
         sound: Cena1,
         callback: function(){
 			audio_stop_sound(Cena1)
@@ -18,7 +18,7 @@ cutscene_data = [
     },
     {
         text: "Ela acreditava no trabalho. Próteses para reconstruir os veteranos feridos pela guerra. Uma mentira piedosa, contada por homens impiedosos. Seu trabalho é vital, Avulli. Você não está apenas construindo membros... está reconstruindo a esperança do Império. ...Mas a esperança pode ser facilmente transformada em uma arma.",
-        sprite: spr_teste,
+        sprite: _2,
         sound: Cena2,
         callback: function(){
 			audio_stop_sound(Cena2)
@@ -26,7 +26,7 @@ cutscene_data = [
     },
     {
         text: "O destino interveio. Um acidente. Uma vida inocente prestes a se extinguir.  Desafiando a ética e a morte, Avulli usou seu protótipo. O núcleo de energia único. Ela não estava apenas salvando seu animal de estimação... ela estava criando a chave.",
-        sprite: spr_teste,
+        sprite: _3,
         sound: Cena3,
         callback: function(){
 			audio_stop_sound(Cena3)
@@ -34,7 +34,7 @@ cutscene_data = [
     },
 	{
         text: "A verdade, quando revelada, é brutal como aço frio. Não havia veteranos. Apenas máquinas de guerra. O protótipo funciona. Você provou seu valor, engenheira. Traga-nos o núcleo. Ele é propriedade do governo.",
-        sprite: spr_teste,
+        sprite: _4,
         sound: Cena4,
         callback: function()
 		{
@@ -43,7 +43,7 @@ cutscene_data = [
     },
 		{
         text: "Quando ela recusou, o véu da civilização já estava em farrapos. O colapso da bolsa imobiliária havia sangrado as ruas... e a fome levou à Guerra Civil. Desesperada, a população invadiu os arsenais e laboratórios do governo. Mas não encontraram apenas armas. Encontraram os pecados do Império: exoarmaduras inacabadas, vírus experimentais... ...E a contaminação foi liberada. A Praga do Aetherium. Um acidente nascido do caos popular. Foi o que disseram na transmissão final. Uma mentira conveniente. A Guerra Civil foi a desculpa perfeita para o governo usar o caos como cobertura, testar suas armas e caçar a única coisa que importava. Agora, a engenheira está presa entre os monstros que o povo libertou... e os monstros que o governo ainda comanda. (Após o corte para preto) Ela deve lutar. Ela deve queimar os mortos. Pois em sua mochila, o pequeno coração mecânico pulsa... a única coisa no mundo que eles não podem ter.",
-        sprite: spr_teste,
+        sprite: _5,
         sound: Cena5,
         callback: function()
 		{
