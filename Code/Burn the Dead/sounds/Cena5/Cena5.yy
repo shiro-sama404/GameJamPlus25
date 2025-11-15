@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Cena5",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":76.79327,
+  "exportDir":"",
+  "name":"Cena5",
+  "parent":{
+    "name":"dublagem",
+    "path":"folders/Sounds/dublagem.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Cena5.wav",
+  "volume":1.0,
+}

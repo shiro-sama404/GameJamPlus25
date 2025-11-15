@@ -1,1 +1,1 @@
-audio_play_sound(snd_theme_music,1,true);
+//audio_play_sound(snd_theme_music,1,true);

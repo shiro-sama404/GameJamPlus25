@@ -18,9 +18,9 @@ randomise();
 my_x = x;
 my_y = y;
 
-// Configurações de alcance melhoradas
-alcance_deteccao = 100;  // Distância para detectar o player
-alcance_ataque = 35;     // Distância para atacar
+// Configurações de alcance melhoradas (ajustadas para sprite maior do player)
+alcance_deteccao = 120;  // Distância para detectar o player (aumentado)
+alcance_ataque = 50;     // Distância para atacar (aumentado para sprite maior)
 velocidade_perseguicao = 1.0;
 
 //debug

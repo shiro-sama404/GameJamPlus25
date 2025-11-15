@@ -108,12 +108,10 @@ function enemy_estado_persegue(){
 	var _distancia_y_abs = abs(_distancia_y);
 	var _distancia_total = point_distance(my_x, my_y, ponto_x, ponto_y);
 	
-	// Verificar se está na distância de ataque E bem alinhado no eixo Y
-	var _tolerancia_y = 15; // Tolerância um pouco maior para alinhamento vertical
-	var _distancia_ideal = 25; // Distância mais conservadora baseada na hitbox real (32px)
-	var _alcance_x_maximo = 28; // Baseado na hitbox real do inimigo
-	
-	// Condições mais precisas para atacar baseadas na hitbox real: 
+    // Verificar se está na distância de ataque E bem alinhado no eixo Y
+    var _tolerancia_y = 25; // Tolerância maior para alinhamento vertical (sprite maior)
+    var _distancia_ideal = 45; // Distância ajustada para sprite maior do player
+    var _alcance_x_maximo = 50; // Aumentado para alcançar o sprite maior	// Condições mais precisas para atacar baseadas na hitbox real: 
 	// 1. Estar dentro do alcance real da hitbox (25 pixels)
 	// 2. Estar bem alinhado verticalmente (15 pixels)
 	// 3. Estar na distância X correta para a hitbox acertar
@@ -136,12 +134,10 @@ function enemy_estado_persegue(){
 		velh = (_distancia_x / _magnitude) * velocidade_perseguicao;
 		velv = (_distancia_y / _magnitude) * velocidade_perseguicao;
 		
-		// Zona morta para movimento horizontal quando muito próximo e bem alinhado
-		if (_distancia_total < alcance_ataque + 15 && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs < 8) {
-			velh = 0; // Parar movimento horizontal se estiver muito próximo e bem posicionado
-		}
-		
-		// Ajustar face baseado na direção (só se movimento horizontal for significativo)
+        // Zona morta para movimento horizontal quando muito próximo e bem alinhado
+        if (_distancia_total < alcance_ataque + 20 && _distancia_y_abs <= _tolerancia_y && _distancia_x_abs < 15) {
+            velh = 0; // Parar movimento horizontal se estiver muito próximo e bem posicionado
+        }		// Ajustar face baseado na direção (só se movimento horizontal for significativo)
 		if (abs(_distancia_x) > 5) { // Só muda direção se diferença for maior que 5 pixels
 			if (_distancia_x > 0) {
 				face = 1;
@@ -152,12 +148,12 @@ function enemy_estado_persegue(){
 		
 		// ACELERAR quando próximo para ajuste rápido de posição Y
 		// Priorizar movimento vertical quando próximo e mal alinhado
-		if (_distancia_total < alcance_ataque + 25) {
+		if (_distancia_total < alcance_ataque + 35) {
 			if (_distancia_y_abs > _tolerancia_y) {
 				// Se está mal alinhado verticalmente, priorizar movimento Y
 				velv *= 2.5;  // Acelerar muito a correção vertical
 				velh *= 0.3;  // Reduzir drasticamente movimento horizontal
-			} else if (_distancia_x_abs > alcance_ataque - 10) {
+			} else if (_distancia_x_abs > alcance_ataque - 15) {
 				// Se está bem alinhado Y mas longe em X, acelerar X
 				velh *= 1.8;
 				velv *= 0.8;
@@ -170,7 +166,7 @@ function enemy_estado_persegue(){
 	}
 	
 	// Verificar se perdeu o player (muito longe)
-	if (_distancia_total > alcance_deteccao + 20) {
+	if (_distancia_total > alcance_deteccao + 30) {
 		estado = enemy_estado_parado;
 		alvo = noone;
 	}
@@ -191,10 +187,10 @@ function enemy_estado_ataque(){
 		var _dist_player = point_distance(x, y, alvo.x, alvo.y);
 		var _dist_y = abs((alvo.y - alvo.sprite_height / 2) - (y - sprite_height / 2));
 		var _dist_x = abs(alvo.x - x);
-		var _tolerancia_y = 15; // Mesma tolerância da perseguição
-		var _alcance_x_maximo = 28; // Baseado na hitbox real
+		var _tolerancia_y = 25; // Tolerância maior para sprite maior
+		var _alcance_x_maximo = 50; // Ajustado para sprite maior do player
 		
-		if (_dist_player > 35 || _dist_y > _tolerancia_y + 5 || _dist_x > _alcance_x_maximo + 5) {
+		if (_dist_player > 55 || _dist_y > _tolerancia_y + 10 || _dist_x > _alcance_x_maximo + 10) {
 			// Player saiu do alcance efetivo, voltar a perseguir
 			estado = enemy_estado_persegue;
 			return;

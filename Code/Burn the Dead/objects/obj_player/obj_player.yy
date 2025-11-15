@@ -42,12 +42,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_player_idle",
-    "path":"sprites/spr_player_idle/spr_player_idle.yy",
+    "name":"spr_avulli_idle",
+    "path":"sprites/spr_avulli_idle/spr_avulli_idle.yy",
   },
   "spriteMaskId":{
-    "name":"spr_player_idle",
-    "path":"sprites/spr_player_idle/spr_player_idle.yy",
+    "name":"spr_avulli_idle",
+    "path":"sprites/spr_avulli_idle/spr_avulli_idle.yy",
   },
   "visible":true,
 }

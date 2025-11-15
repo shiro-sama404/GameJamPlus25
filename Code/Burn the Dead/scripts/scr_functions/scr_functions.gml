@@ -234,13 +234,13 @@ function aplicar_knockback_por_ataque(atacante, alvo) {
         
         // Ajustar força baseada no sprite/ataque
         switch(atacante.sprite_index) {
-            case spr_player_kick:
+            case spr_avulli_kick1:
                 _knockback_force = 3; // Chute empurra mais
                 break;
-            case spr_player_punch1:
+            case spr_avulli_punch1:
                 _knockback_force = 2; // Soco normal
                 break;
-            case spr_player_jump_attack:
+            case spr_avulli_punch2:
                 _knockback_force = 4; // Ataque aéreo empurra muito
                 break;
         }

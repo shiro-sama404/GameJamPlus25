@@ -129,7 +129,7 @@ function camera_modo_cinematico(_ativar) {
 // camera_shake_dano();
 
 // 3. Para ataques especiais (obj_player):
-// if (sprite_index == spr_player_jump_attack2) {
+// if (sprite_index == spr_avulli_punch2) {
 //     camera_shake_explosao();
 // }
 

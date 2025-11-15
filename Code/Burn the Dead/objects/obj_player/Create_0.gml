@@ -12,19 +12,19 @@ velz = 0;
 
 z = 0;
 
-vel_max = 2; // Velocidade normal para caminhar
-vel_max_dash = 15; // Velocidade máxima durante dash
-vel_pulo = 4;
+vel_max = 3.5; // Velocidade normal para caminhar (aumentada)
+vel_max_dash = 18; // Velocidade máxima durante dash (aumentada)
+vel_pulo = 5; // Velocidade de pulo (aumentada)
 grav = .15;
 face = 1;
 buffer_attack = false;
 my_damage = noone;
 
-// Configurar hurtbox do player
-hurtbox_x1 = -8;
-hurtbox_y1 = -40;
-hurtbox_x2 = 8;
-hurtbox_y2 = 0;
+// Configurar hurtbox do player (ajustar conforme o tamanho do novo sprite)
+hurtbox_x1 = -40;  // Lado esquerdo (negativo)
+hurtbox_y1 = -150;  // Topo (negativo - mais alto)
+hurtbox_x2 = 30;   // Lado direito (positivo)
+hurtbox_y2 = 0;    // Base (geralmente 0, pés no chão)
 my_hurtbox = new scr_hurtbox(hurtbox_x1, hurtbox_y1, hurtbox_x2, hurtbox_y2);
 
 up		= noone;

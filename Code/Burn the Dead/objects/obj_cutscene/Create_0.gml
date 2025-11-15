@@ -9,29 +9,47 @@ gui_height = display_get_gui_height();
 // Usando cutscene de exemplo para demonstração
 cutscene_data = [
     {
-        text: "Era uma vez, em uma cidade sombria...",
+        text: "Tirana. O Coração pulsante do Império, alimentado pelo Aetherium. Uma maravilha de vapor e progresso... agora, um mausoléu de ferrugem e carne corrompida. Neste pesadelo mecânico, caminha a engenheira Avulli. Uma criadora de vida artificial... agora caçada pelos arquitetos da morte.",
         sprite: spr_teste,
-        sound: noone,
-        callback: function() {
-            // Exemplo: parar música de fundo
-            audio_stop_all();
-        }
+        sound: Cena1,
+        callback: function(){
+			audio_stop_sound(Cena1)
+		}
     },
     {
-        text: "Nosso herói caminhava pelas ruas desertas, sem saber o que o esperava.",
+        text: "Ela acreditava no trabalho. Próteses para reconstruir os veteranos feridos pela guerra. Uma mentira piedosa, contada por homens impiedosos. Seu trabalho é vital, Avulli. Você não está apenas construindo membros... está reconstruindo a esperança do Império. ...Mas a esperança pode ser facilmente transformada em uma arma.",
         sprite: spr_teste,
-        sound: noone,
-        callback: noone
+        sound: Cena2,
+        callback: function(){
+			audio_stop_sound(Cena2)
+		}
     },
     {
-        text: "Agora é hora de lutar! O jogo vai começar.",
+        text: "O destino interveio. Um acidente. Uma vida inocente prestes a se extinguir.  Desafiando a ética e a morte, Avulli usou seu protótipo. O núcleo de energia único. Ela não estava apenas salvando seu animal de estimação... ela estava criando a chave.",
         sprite: spr_teste,
-        sound: noone,
-        callback: function() {
-            // Este callback só será executado quando o usuário avançar este passo
-            //show_debug_message("Callback executado! Indo para Room1...");
-            room_goto_next(); // Descomente para usar
-        }
+        sound: Cena3,
+        callback: function(){
+			audio_stop_sound(Cena3)
+		}
+    },
+	{
+        text: "A verdade, quando revelada, é brutal como aço frio. Não havia veteranos. Apenas máquinas de guerra. O protótipo funciona. Você provou seu valor, engenheira. Traga-nos o núcleo. Ele é propriedade do governo.",
+        sprite: spr_teste,
+        sound: Cena4,
+        callback: function()
+		{
+			audio_stop_sound(Cena4)
+		}
+    },
+		{
+        text: "Quando ela recusou, o véu da civilização já estava em farrapos. O colapso da bolsa imobiliária havia sangrado as ruas... e a fome levou à Guerra Civil. Desesperada, a população invadiu os arsenais e laboratórios do governo. Mas não encontraram apenas armas. Encontraram os pecados do Império: exoarmaduras inacabadas, vírus experimentais... ...E a contaminação foi liberada. A Praga do Aetherium. Um acidente nascido do caos popular. Foi o que disseram na transmissão final. Uma mentira conveniente. A Guerra Civil foi a desculpa perfeita para o governo usar o caos como cobertura, testar suas armas e caçar a única coisa que importava. Agora, a engenheira está presa entre os monstros que o povo libertou... e os monstros que o governo ainda comanda. (Após o corte para preto) Ela deve lutar. Ela deve queimar os mortos. Pois em sua mochila, o pequeno coração mecânico pulsa... a única coisa no mundo que eles não podem ter.",
+        sprite: spr_teste,
+        sound: Cena5,
+        callback: function()
+		{
+			audio_stop_sound(Cena5)
+			room_goto_next()
+		}
     }
 ];
 

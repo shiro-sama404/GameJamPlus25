@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Cena4",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":19.043264,
+  "exportDir":"",
+  "name":"Cena4",
+  "parent":{
+    "name":"dublagem",
+    "path":"folders/Sounds/dublagem.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Cena4.wav",
+  "volume":1.0,
+}

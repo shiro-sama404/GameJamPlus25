@@ -74,7 +74,7 @@ function player_controla(){
 function player_estado_idle(){
 	// Só mudar sprite se não estiver em animação de dano
 	if (!dano_animacao_ativa) {
-		sprite_index = spr_player_idle;
+		sprite_index = spr_avulli_idle;
 	}
 	player_controla();
 	
@@ -111,7 +111,7 @@ function player_estado_idle(){
 function player_estado_walk(){
 	// Só mudar sprite se não estiver em animação de dano
 	if (!dano_animacao_ativa) {
-		sprite_index = spr_player_walk;
+		sprite_index = spr_avulli_walk;
 	}
 	player_controla();
 	
@@ -159,9 +159,9 @@ function player_estado_ataque(){
 		buffer_attack = _kb_attack || _gp_attack;
 	}
 	
-	if sprite_index != spr_player_punch1 && sprite_index != spr_player_kick && sprite_index != spr_player_jump_attack{
+	if sprite_index != spr_avulli_punch1 && sprite_index != spr_avulli_kick1 && sprite_index != spr_avulli_punch2{
 		image_index = 0;
-		sprite_index = spr_player_kick;
+		sprite_index = spr_avulli_kick1;
 		// Limpar lista de atacantes para permitir novo dano
 		limpar_atacantes_de_entidades();
 		// Registrar primeiro ataque do combo
@@ -169,8 +169,8 @@ function player_estado_ataque(){
 	}
 	
 	if _attack && image_index >= image_number -1 {
-		if sprite_index == spr_player_kick{
-			sprite_index = spr_player_punch1;
+		if sprite_index == spr_avulli_kick1{
+			sprite_index = spr_avulli_punch1;
 			image_index = 0;
 			buffer_attack = false; 
 			// Limpar lista de atacantes para permitir novo dano
@@ -178,8 +178,8 @@ function player_estado_ataque(){
 			// Registrar segundo ataque do combo
 			registrar_ataque_combo();
 		}
-		if sprite_index == spr_player_punch1 && buffer_attack{
-			sprite_index = spr_player_jump_attack;
+		if sprite_index == spr_avulli_punch1 && buffer_attack{
+			sprite_index = spr_avulli_punch2;
 			image_index = 0;
 			buffer_attack = false; 
 			// Limpar lista de atacantes para permitir novo dano
@@ -203,7 +203,7 @@ function player_estado_ataque(){
 
 function player_estado_pulo(){
 	if (sprite_index != spr_player_jump && velz <=0){
-		if (sprite_index != spr_player_jump_attack){
+		if (sprite_index != spr_avulli_punch2){
 			// Só mudar sprite se não estiver em animação de dano
 			if (!dano_animacao_ativa) {
 				sprite_index = spr_player_jump;
@@ -237,8 +237,8 @@ function player_estado_pulo(){
 function player_estado_jump_kick(){
 	velz =.1;
 
-	if(sprite_index != spr_player_jump_attack){
-		sprite_index = spr_player_jump_attack
+	if(sprite_index != spr_avulli_punch2){
+		sprite_index = spr_avulli_punch2
 		image_index = 0;
 		// Limpar lista de atacantes para permitir novo dano
 		limpar_atacantes_de_entidades();
