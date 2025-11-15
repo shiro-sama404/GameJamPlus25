@@ -10,7 +10,7 @@ gui_height = display_get_gui_height();
 cutscene_data = [
     {
         text: "Tirana. O Coração pulsante do Império, alimentado pelo Aetherium. Uma maravilha de vapor e progresso... agora, um mausoléu de ferrugem e carne corrompida. Neste pesadelo mecânico, caminha a engenheira Avulli. Uma criadora de vida artificial... agora caçada pelos arquitetos da morte.",
-        sprite: spr_teste,
+        sprite: IMG_1794,
         sound: Cena1,
         callback: function(){
 			audio_stop_sound(Cena1)

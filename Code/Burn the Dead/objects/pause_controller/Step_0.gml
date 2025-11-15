@@ -39,11 +39,15 @@ switch(global.game_state)
 
 	        if (_key_down) 
 			{
+		        // Som de navegação
+		        audio_play_sound(snd_select, 1, false);
 	            pause_index++;
 	            _change_selection = true;
 	        }
 	        else if (_key_up) 
 			{
+		        // Som de navegação
+		        audio_play_sound(snd_select, 1, false);
 	            pause_index--;
 	            _change_selection = true;
 	        }
@@ -65,6 +69,8 @@ switch(global.game_state)
 		// action
 	    if (_key_confirm)
 		{
+		    // Som de clique/confirmação
+		    audio_play_sound(snd_click, 1, false);
 	        scr_pause_logic(pause_index);
 	    }
 	    // mouse detection will be implemented on drawGUI
@@ -93,11 +99,15 @@ switch(global.game_state)
 			var _change_selection = false;
 			
 			if (_key_up) {
+				// Som de navegação
+				audio_play_sound(snd_select, 1, false);
 			    current_option = (current_option - 1 + array_length(options)) % array_length(options);
 			    _change_selection = true;
 			}
 
 			if (_key_down) {
+				// Som de navegação
+				audio_play_sound(snd_select, 1, false);
 			    current_option = (current_option + 1) % array_length(options);
 			    _change_selection = true;
 			}
@@ -192,6 +202,8 @@ switch(global.game_state)
 		        // Se o mouse se moveu sobre a opção, ela é selecionada
 		        if (current_option != i) 
 				{
+					// Som de navegação quando mouse seleciona opção diferente
+					audio_play_sound(snd_select, 1, false);
 		            current_option = i;
 		        }
 
@@ -221,10 +233,14 @@ switch(global.game_state)
 		        if (_mouse_pressed) {
 		            if (_option.type == OPTION_TYPE.ACTION) 
 					{
+						// Som de clique ao executar ação
+						audio_play_sound(snd_click, 1, false);
 		                _option.script();
 		            }
 					else if (_option.type == OPTION_TYPE.TOGGLE) 
 					{
+						// Som de clique ao alterar opção
+						audio_play_sound(snd_click, 1, false);
 		                // Ao clicar, muda a opção para o próximo valor
 		                var _len = array_length(_option.values);
 		                _option.current_val = (_option.current_val + 1) % _len;

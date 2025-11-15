@@ -89,6 +89,8 @@ function player_estado_idle(){
 		estado = player_estado_walk; 
 	}
 	if (jump){
+		// Som de pulo
+		audio_play_sound(snd_player_jump, 1, false);
 		estado = player_estado_pulo;
 		velz = -vel_pulo;
 	}
@@ -125,6 +127,8 @@ function player_estado_walk(){
 		estado = player_estado_idle; 
 	}
 	if (jump){
+		// Som de pulo
+		audio_play_sound(snd_player_jump, 1, false);
 		estado = player_estado_pulo;
 		velz = -vel_pulo;
 	}
@@ -202,11 +206,11 @@ function player_estado_ataque(){
 }
 
 function player_estado_pulo(){
-	if (sprite_index != spr_player_jump && velz <=0){
+	if (sprite_index != spr_avulli_jump && velz <=0){
 		if (sprite_index != spr_avulli_punch2){
 			// Só mudar sprite se não estiver em animação de dano
 			if (!dano_animacao_ativa) {
-				sprite_index = spr_player_jump;
+				sprite_index = spr_avulli_jump;
 				image_index = 0;
 			}
 		}
@@ -221,7 +225,7 @@ function player_estado_pulo(){
 	if (velz > 0){
 		// Só mudar sprite se não estiver em animação de dano
 		if (!dano_animacao_ativa) {
-			sprite_index = spr_player_caindo;
+			sprite_index = spr_avulli_fall;
 		}
 	}
 	if (attack){
@@ -258,8 +262,8 @@ function player_estado_jump_kick(){
 function player_estado_jump_kick2(){
 	velv = 0;
 
-	if sprite_index != spr_player_jump_attack2{
-		sprite_index = spr_player_jump_attack2;
+	if sprite_index != spr_avulli_kick1{
+		sprite_index = spr_avulli_kick1;
 		image_index = 0;
 		velh = face * 3; // Movimento horizontal inicial
 		jump_kick2_impulso = false; // Resetar impulso
@@ -287,6 +291,9 @@ function player_estado_jump_kick2(){
 
 // Função para iniciar o dash
 function iniciar_dash() {
+	// Som de dash
+	audio_play_sound(snd_player_dash, 1, false);
+	
 	dash_ativo = true;
 	dash_disponivel = false;
 	dash_timer = dash_cooldown;
@@ -311,10 +318,10 @@ function player_estado_dash() {
 	// Atualizar face
 	face = dash_direcao;
 	
-	// Sprite de movimento rápido (usar sprite de walk por enquanto)
+	// Sprite de movimento rápido
 	// Só mudar sprite se não estiver em animação de dano
 	if (!dano_animacao_ativa) {
-		sprite_index = spr_player_walk;
+		sprite_index = spr_avulli_dash;
 	}
 	
 	// Adicionar posição atual ao rastro

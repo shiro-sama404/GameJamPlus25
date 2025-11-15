@@ -22,6 +22,8 @@ if (global.game_state == GAMING_STATE)
 	// 
 	if (key_down)
 	{
+		// Som de navegação
+		audio_play_sound(snd_select, 1, false);
 		menu_index++;
 		if (menu_index >= array_length(menu_options))
 		{
@@ -32,6 +34,8 @@ if (global.game_state == GAMING_STATE)
 	//
 	if (key_up)
 	{
+		// Som de navegação
+		audio_play_sound(snd_select, 1, false);
 		menu_index--;
 		if (menu_index < 0)
 		{
@@ -69,11 +73,17 @@ if (global.game_state == GAMING_STATE)
 		// veryfies if mouse is under the option
 		if (point_in_rectangle(_mouse_gui_x, _mouse_gui_y, box_left, box_top, box_right, box_bottom))
 		{
+			// Som de navegação quando mouse seleciona opção diferente
+			if (menu_index != i) {
+				audio_play_sound(snd_select, 1, false);
+			}
 			_mouse_selection = i;
 			menu_index = i;
 		
 			if (mouse_check_button_pressed(mb_left))
 			{
+				// Som de clique quando confirma com mouse
+				audio_play_sound(snd_click, 1, false);
 				key_confirm = true;
 			}
 			break;
@@ -105,6 +115,9 @@ if (global.game_state == GAMING_STATE)
 
 	if (key_confirm)
 	{
+		// Som de clique/confirmação
+		audio_play_sound(snd_click, 1, false);
+		
 		switch(menu_index)
 		{
 			case 0:

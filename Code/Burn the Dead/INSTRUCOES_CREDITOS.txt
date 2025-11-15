@@ -1,0 +1,49 @@
+// ========================================
+// COMO IMPLEMENTAR O SISTEMA DE CRÉDITOS
+// ========================================
+
+/*
+PASSO 1: CRIAR ROOM DE CRÉDITOS
+- Crie uma nova room chamada "rm_creditos" 
+- Configure ela para ser a PRIMEIRA room no Room Order
+- Adicione uma instância do obj_creditos na room
+
+PASSO 2: CONFIGURAR ORDEM DAS ROOMS
+No GameMaker Studio, vá em:
+- Resource Tree > Room Order
+- Organize na seguinte ordem:
+  1. rm_creditos (primeira - vai aparecer logo ao iniciar o jogo)
+  2. rm_menu (segunda - será chamada após os créditos)
+  3. Suas outras rooms...
+
+PASSO 3: USAR O SISTEMA
+O sistema já está pronto! Quando o jogo iniciar:
+1. Aparecerá a room rm_creditos
+2. obj_creditos executará automaticamente
+3. Mostrará as 3 mensagens com fade:
+   - "Esse jogo é apenas uma prova de conceito..."
+   - "Todos os sprites, códigos e sons foram produzidos do zero por..."
+   - "Tenha um bom jogo"
+4. Automaticamente irá para rm_menu
+
+CONTROLES DISPONÍVEIS:
+- Qualquer tecla/botão para pular os créditos
+- Mouse clique para pular
+- Gamepad qualquer botão para pular
+
+PERSONALIZAÇÃO DISPONÍVEL:
+No script scr_creditos você pode alterar:
+- fade_speed: Velocidade do fade in/out
+- tempo_para_mostrar: Quanto tempo cada mensagem fica na tela
+- creditos_mensagens[]: As mensagens dos créditos
+- Fonte usada (fnt_menu)
+
+FUNCIONALIDADES:
+✅ Fade in/out suave entre mensagens
+✅ Fundo preto
+✅ Texto centralizado e responsivo
+✅ Possibilidade de pular com qualquer input
+✅ Transição automática para o menu
+✅ Sistema profissional e polido
+
+*/

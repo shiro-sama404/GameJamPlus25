@@ -75,8 +75,10 @@ jump_kick2_impulso = false;
 
 // Sobrescrever função de morte
 morrer = function() {
-    // Reiniciar o jogo quando o player morre
-    game_restart();
+    // Criar tela de Game Over
+    if (!instance_exists(obj_gameover)) {
+        instance_create_depth(0, 0, -9999, obj_gameover);
+    }
 }
 
 // Sobrescrever funções de dano para adicionar animação
@@ -204,7 +206,7 @@ iniciar_animacao_dano = function() {
         
         dano_animacao_ativa = true;
         dano_animacao_timer = dano_animacao_duracao;
-        sprite_index = spr_player_hurt;
+        sprite_index = spr_avulli_idle;
         image_index = 0;
     }
 }
