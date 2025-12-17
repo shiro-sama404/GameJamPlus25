@@ -1,0 +1,57 @@
+name: Bug Report
+description: Reporte um problema ou bug encontrado
+title: "BU-0XX: "
+assignees:
+  - theycelz
+  - jecelen
+  - GilvanFe
+  - GuilhermeCupertino
+  - Lucas
+  - marcelloAnth
+body:
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: "🐛 O que aconteceu?"
+      description: "Descreva o bug ocorrido e o que você esperava que acontecesse."
+      placeholder: "Exemplo: Um bug aconteceu! O sistema travou ao tentar salvar o formulário."
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "📜 Evidência"
+      description: "Cole qualquer saída de log, prints ou evidências que ajudem a entender o problema."
+      placeholder: |
+        ```
+        [Seu log aqui]
+        ```
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "⚡ Prioridade"
+      description: "Selecione o nível de prioridade do bug."
+      options:
+        - Baixa
+        - Média
+        - Alta
+        - Crítica
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "🚨 Severidade"
+      description: "Selecione o nível de severidade do bug."
+      options:
+        - Menor
+        - Normal
+        - Grave
+        - Crítica
+    validations:
+      required: true

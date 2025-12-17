@@ -1,0 +1,98 @@
+name: Task
+description: Template para criação de tasks (tarefas de implementação).
+title: "TS-0XX: [Breve descrição da Task]"
+labels: ["task", "prioridade: média"] # Sugestão: adicione labels padrão
+
+body:
+  - type: input
+    id: task-code
+    attributes:
+      label: 📌 Código da Task
+      description: "Informe o identificador da task, seguindo o padrão: TS-XX"
+      placeholder: "Ex: TS-01"
+    validations:
+      required: true
+
+  - type: textarea
+    id: task
+    attributes:
+      label: 📖 Descrição Detalhada
+      description: "Descreva o que deve ser feito na task de forma detalhada."
+      placeholder: |
+        - Objetivo principal:
+        - Detalhes de implementação (se souber):
+        - Comportamento esperado:
+    validations:
+      required: true
+
+  - type: input
+    id: epic-relation
+    attributes:
+      label: 🎯 Épico Relacionado
+      description: "Digite o código do épico ao qual esta task pertence (ex: EP-01, EP-02, etc.)."
+      placeholder: "Ex: EP-XX"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: story-priority
+    attributes:
+      label: ⚡ Prioridade
+      description: "Defina a prioridade desta task."
+      options:
+        - "🔴 Alta"
+        - "🟡 Média"
+        - "🟢 Baixa"
+      default: 1 # O índice de "Média"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tamanho
+    attributes:
+      label: 🎲 Tamanho (Estimativa)
+      description: "Defina o tamanho/esforço estimado para esta task."
+      options:
+        - "🔴 Grande (3+ dias)"
+        - "🟡 Médio (1-2 dias)"
+        - "🟢 Pequeno (< 1 dia)"
+      default: 1 # O índice de "Médio"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Critérios de Aceitação
+      description: "Liste os critérios específicos que devem ser atendidos para considerar a task concluída."
+      placeholder: |
+        - Critério 1: O sistema deve...
+        - Critério 2: O usuário deve conseguir...
+        - Critério 3: O teste X deve passar.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 🔗 Dependências
+      description: "Liste outras tasks, histórias ou fatores externos dos quais esta task depende."
+      placeholder: |
+        Depende de:
+        - US-XX: História de Usuário X (link: [URL])
+        - Aprovação do design pela equipe de UX.
+        - Configuração do serviço Y no ambiente de QA.
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 🎨 Mockups e Referências
+      description: "Inclua links para protótipos, wireframes, designs ou referências úteis."
+      placeholder: |
+        - Link para Figma/Design: [URL]
+        - Documentação de API: [URL]
+        - Screenshot de exemplo: (anexar arquivos)
+    validations:
+      required: false
