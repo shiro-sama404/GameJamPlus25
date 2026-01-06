@@ -20,6 +20,10 @@ face = 1;
 buffer_attack = false;
 my_damage = noone;
 
+hurt_timer = 0;
+decrement = 2;
+hurt = false;
+
 // Configurar hurtbox do player (ajustar conforme o tamanho do novo sprite)
 hurtbox_x1 = -40;  // Lado esquerdo (negativo)
 hurtbox_y1 = -150;  // Topo (negativo - mais alto)

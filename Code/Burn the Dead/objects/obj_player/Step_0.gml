@@ -64,6 +64,8 @@ if (is_struct(my_damage)){
 with (obj_enemy1) {
 	if (aplicar_dano_entre_entidades(self, other)) {
 		// Player recebeu dano
+		other.hurt_timer = 20;
+		other.hurt = true;
 	}
 }
 
@@ -83,4 +85,14 @@ if (dano_animacao_ativa && estado != estado_defense) {
     dano_animacao_timer = 0;
 }
 
+
+if (hurt && hurt_timer > 0)
+{
+	hurt_timer -= decrement;
+}
+else
+{
+	hurt = false;
+	hurt_timer = 0;
+}
 atualizar_posicao_struct(my_hurtbox, x, y, z);
